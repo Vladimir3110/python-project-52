@@ -7,6 +7,12 @@ lint:
 build:
 	./build.sh
 
+migrations:
+	uv run python manage.py makemigrations
+
+migrate:
+	uv run python manage.py migrate
+
 dev:
 	python manage.py runserver
 
