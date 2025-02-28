@@ -1,0 +1,12 @@
+.vscode/
+*.py[cod]
+*.egg-info
+__pycache__
+dist/
+*.pyc
+.venv/
+task_manager/__pycache__/
+.python_version
+.env
+.ruff_cache
+db.sqlite3
