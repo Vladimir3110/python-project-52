@@ -7,6 +7,9 @@ build:
 lint:
 	uv run ruff check .
 
+test:
+	uv run python manage.py test
+
 migrate:
 	uv run python manage.py makemigrations && \
 	uv run python manage.py migrate

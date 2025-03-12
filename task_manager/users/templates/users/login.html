@@ -1,0 +1,14 @@
+{% extends "../layout.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="my-4">Вход</h1>
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="hidden" name="next" value="{{ request.GET.next }}">
+  <input class="btn btn-primary" type="submit" value="Войти">
+</form>
+
+{% endblock %}

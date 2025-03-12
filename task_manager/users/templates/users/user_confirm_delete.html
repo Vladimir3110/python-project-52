@@ -1,0 +1,11 @@
+{% extends "../layout.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="my-4">Удаление пользователя</h1>
+  <form action="{% url 'user_delete' user.pk %}" method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить {{ user.get_full_name }}?</p>
+    <input class="btn btn-danger" type="submit" value="Да, удалить">
+  </form>
+{% endblock %}

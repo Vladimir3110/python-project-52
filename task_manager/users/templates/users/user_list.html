@@ -1,0 +1,32 @@
+{% extends '../layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="my-4">Пользователи</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Имя пользователя</th>
+          <th>Полное имя</th>
+          <th>Дата создания</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.get_full_name }}</td>
+          <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
+          <td>
+            <a href="{% url 'user_update' user.id  %}">Изменить</a>
+            <br>
+            <a href="{% url 'user_delete' user.id %}">Удалить</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

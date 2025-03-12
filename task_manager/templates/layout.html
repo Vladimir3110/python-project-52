@@ -1,12 +1,15 @@
+{% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="ru-ru">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Менеджер задач Hexlet</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
   </head>
   <body class="d-flex flex-column min-vh-100">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light ms-3">
       <a class="navbar-brand" href="/">Менеджер задач</a>
       <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent">
@@ -20,20 +23,28 @@
           
         </ul>
         <ul class="navbar-nav">
-          
+          <!-- для авторизованного пользователя -->
+          {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <input class="btn nav-link" type="submit" value="Выход">
+          </form>
+          {% else %}
+            <!-- для гостя (не авторизованного пользователя) -->
             <li class="nav-item">
               <a class="nav-link" href="/login/">Вход</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/create/">Регистрация</a>
             </li>
-          
+            {% endif %}
         </ul>
       </div>
     </nav>
     <div class="container wrapper flex-grow-1">
+      <!-- Отображение сообщений -->
+      {% bootstrap_messages %}
       
-
       {% block content %}
 
 {% endblock %}
