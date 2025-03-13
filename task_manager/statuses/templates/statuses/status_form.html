@@ -1,0 +1,13 @@
+{% extends '../layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="my-4">{% if object %}Изменить статус{% else %}Создать статус{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">
+        {% if object %}Изменить{% else %}Создать{% endif %}
+    </button>
+</form>
+{% endblock %}

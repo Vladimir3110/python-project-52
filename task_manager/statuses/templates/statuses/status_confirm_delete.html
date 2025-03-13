@@ -1,0 +1,11 @@
+{% extends '../layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="my-4">Удалить статус</h1>
+<form method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить статус "{{ object.name }}"?</p>
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+</form>
+{% endblock %}

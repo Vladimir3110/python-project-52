@@ -25,6 +25,11 @@
         <ul class="navbar-nav">
           <!-- для авторизованного пользователя -->
           {% if user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'status_list' %}">Статусы</a>
+          </li>
+
           <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input class="btn nav-link" type="submit" value="Выход">
