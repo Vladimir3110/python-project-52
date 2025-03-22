@@ -1,7 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
+
+from task_manager.tasks.models import Task
 
 
 class UserCRUDTests(TestCase):
@@ -32,74 +35,78 @@ class UserCRUDTests(TestCase):
         "зарегистрирован")
 
     def test_user_update(self):
-        """
-        Тест обновления данных пользователя (Update).
-        """
         self.client.login(username='testuser', password='testpassword123')
-        url = reverse('user_update', args=[self.user.id])
-        data = {
+        response = self.client.post(reverse('user_update', args=[self.user.id]),
+                                 {
+            'username': 'testuser',
             'first_name': 'Updated',
             'last_name': 'User',
-            'username': 'testuser',
-            'current_password': 'testpassword123'
-        }
-        response = self.client.post(url, data)
-
+        })
+    
         self.assertEqual(response.status_code, 302)
-        updated_user = User.objects.get(id=self.user.id)
-        self.assertEqual(updated_user.first_name, 'Updated')
-        
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, 'testuser')
+
+    def test_unauthenticated_user_cannot_update(self):
+        url = reverse('user_update', kwargs={'pk': self.user.pk})
+        response = self.client.post(url)
+    
+        login_url = reverse(settings.LOGIN_URL)
+        expected_redirect = f"{login_url}?next={url}"
+        self.assertRedirects(response, expected_redirect)
+    
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), "Пользователь успешно изменен")
+        self.assertEqual(str(messages[0]), "Вы не авторизованы! "
+        "Пожалуйста, выполните вход.")
 
-    def test_user_update_no_permission(self):
-        """
-        Тест попытки обновления чужого пользователя (Update без прав).
-        """
-        another_user = User.objects.create_user(
-            username='anotheruser',
-            password='anotherpassword123'
-        )
-        self.client.login(username='testuser', password='testpassword123')
-        url = reverse('user_update', args=[another_user.id])
-        response = self.client.post(url, {})
-        # Проверяем, что доступ запрещен
-        self.assertEqual(response.status_code, 302)
+
+class UserDeleteViewTests(TestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='user1', 
+                                              password='testpass123')
+        self.user2 = User.objects.create_user(username='user2', 
+                                              password='testpass123')
+
+    def test_unauthenticated_user_cannot_delete(self):
+        url = reverse('user_delete', kwargs={'pk': self.user1.pk})
+        response = self.client.post(url)
+    
+        login_url = reverse(settings.LOGIN_URL)
+        expected_redirect = f"{login_url}?next={url}"
+    
+        self.assertRedirects(response, expected_redirect)
+        self.assertTrue(User.objects.filter(pk=self.user1.pk).exists())
+    
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]), "Вы не авторизованы! "
+        "Пожалуйста, выполните вход.")
+
+    def test_user_cannot_delete_other_user(self):
+        self.client.login(username='user1', password='testpass123')
+        url = reverse('user_delete', kwargs={'pk': self.user2.pk})
+        response = self.client.post(url)
         self.assertRedirects(response, reverse('user_list'))
-
+        self.assertTrue(User.objects.filter(pk=self.user2.pk).exists())
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), "У вас нет прав для изменения "
         "другого пользователя.")
 
-    def test_user_delete(self):
-        """
-        Тест удаления пользователя (Delete).
-        """
-        self.client.login(username='testuser', password='testpassword123')
-        url = reverse('user_delete', args=[self.user.id])
+    def test_cannot_delete_user_with_tasks(self):
+        Task.objects.create(name='Test Task', author=self.user1)
+        self.client.login(username='user1', password='testpass123')
+        url = reverse('user_delete', kwargs={'pk': self.user1.pk})
         response = self.client.post(url)
-        # Проверяем, что пользователь был удален
-        self.assertEqual(response.status_code, 302)
-        self.assertFalse(User.objects.filter(id=self.user.id).exists())
+        self.assertRedirects(response, reverse('user_list'))
+        self.assertTrue(User.objects.filter(pk=self.user1.pk).exists())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertIn("Невозможно удалить пользователя, потому "
+        "что он используется", str(messages[0]))
 
+    def test_successful_user_deletion(self):
+        self.client.login(username='user1', password='testpass123')
+        url = reverse('user_delete', kwargs={'pk': self.user1.pk})
+        response = self.client.post(url)
+        self.assertRedirects(response, reverse('user_list'))
+        self.assertFalse(User.objects.filter(pk=self.user1.pk).exists())
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), "Пользователь успешно удален")
-
-    def test_user_delete_no_permission(self):
-        """
-        Тест попытки удаления чужого пользователя (Delete без прав).
-        """
-        another_user = User.objects.create_user(
-            username='anotheruser',
-            password='anotherpassword123'
-        )
-        self.client.login(username='testuser', password='testpassword123')
-        url = reverse('user_delete', args=[another_user.id])
-        response = self.client.post(url)
-        # Проверяем, что доступ запрещен
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('user_list'))
-
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), "У вас нет прав для "
-        "изменения другого пользователя.")

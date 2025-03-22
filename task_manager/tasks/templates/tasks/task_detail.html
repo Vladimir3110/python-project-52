@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1>{{ task.name }}</h1>
+<div class="card">
+    <div class="card-body">
+        <p class="card-text">{{ task.description }}</p>
+        <dl class="row">
+            <dt class="col-sm-3">Статус:</dt>
+            <dd class="col-sm-9">{{ task.get_status_display }}</dd>
+            <dt class="col-sm-3">Автор:</dt>
+            <dd class="col-sm-9">{{ task.author }}</dd>
+            <dt class="col-sm-3">Исполнитель:</dt>
+            <dd class="col-sm-9">{{ task.assigned_to|default:"Не назначен" }}</dd>
+        </dl>
+        <a href="{% url 'tasks:update' task.id %}" class="btn btn-secondary">Изменить</a>
+    </div>
+</div>
+{% endblock %}

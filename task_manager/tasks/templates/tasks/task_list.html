@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Задачи</h1>
+    
+    <!-- Кнопка создания -->
+    <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}" role="button">Создать задачу</a>
+
+    <!-- Фильтры -->
+<div class="card mb-3">
+    <div class="card-body bg-light">
+        <form method="get">
+            <div class="d-flex flex-column gap-3">
+                <!-- Статус -->
+                <div>
+                    <label class="form-label" for="id_status">Статус</label>
+                    <select name="status" class="form-select" id="id_status">
+                        <option value="">---------</option>
+                        {% for value, name in statuses %}
+                            <option value="{{ value }}" 
+                                {% if selected_status == value %}selected{% endif %}>
+                                {{ name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Исполнитель -->
+                <div>
+                    <label class="form-label" for="id_executor">Исполнитель</label>
+                    <select name="executor" class="form-select" id="id_executor">
+                        <option value="">---------</option>
+                        {% for user in executors %}
+                            <option value="{{ user.id }}" {% if selected_executor == user.id|stringformat:"s" %}selected{% endif %}>
+                                {{ user.get_full_name|default:user.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Чекбокс -->
+                <div>
+                    <div class="form-check">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="id_self_tasks" 
+                            name="self_tasks"
+                            {% if self_tasks %}checked{% endif %}>
+                        <label class="form-check-label" for="id_self_tasks">
+                            Только свои задачи
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Кнопка фильтра -->
+                <div>
+                    <input class="btn btn-primary" type="submit" value="Показать">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Таблица задач -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Статус</th>
+                <th>Автор</th>
+                <th>Исполнитель</th>
+                <th>Дата создания</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
+                <td>{{ task.get_status_display }}</td>
+                <td>{{ task.author.get_full_name|default:task.author.username }}</td>
+            
+            <td>
+            {% if task.assigned_to %}
+            {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
+        {% else %}
+            -
+        {% endif %}
+        </td>
+                <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                <td>
+                    <div>
+                        <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-link">Изменить</a>
+                        <br>
+                    <a href="{% url 'tasks:delete' task.id %}" 
+                       class="btn btn-sm btn-link">
+                        <i class="bi bi-trash"></i> Удалить
+                    </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

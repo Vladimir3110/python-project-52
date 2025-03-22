@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container wrapper flex-grow-1">
+    <h2 class="my-4">
+        {% if form.instance.id %}Изменить{% else %}Создать{% endif %} задачу
+    </h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">
+            {% if form.instance.id %}Изменить{% else %}Создать{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}

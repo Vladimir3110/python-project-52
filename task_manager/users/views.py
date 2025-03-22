@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import UserRegistrationForm, UserUpdateForm
@@ -37,23 +38,35 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user.id == self.get_object().id
 
     def handle_no_permission(self):
-        messages.error(
-            self.request,
-            "У вас нет прав для изменения другого пользователя.",
-            extra_tags='error'
-        )
-        return redirect(self.success_url)
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                "Вы не авторизованы! Пожалуйста, выполните вход.",
+                extra_tags='error'
+            )
+            return redirect_to_login(
+                self.request.get_full_path(),
+                login_url=reverse(settings.LOGIN_URL)
+            )
+        else:
+            messages.error(
+                self.request,
+                "У вас нет прав для изменения другого пользователя.",
+                extra_tags='error'
+            )
+            return redirect(self.success_url)
+#        messages.error(
+#            self.request,
+#            "У вас нет прав для изменения другого пользователя.",
+#            extra_tags='error'
+#        )
+#        return redirect(self.success_url)
 
     def form_valid(self, form):
-        response = super().form_valid(form)      
-        # Если пароль был изменен, обновляем сессию
+        response = super().form_valid(form)
         if 'password' in form.cleaned_data and form.cleaned_data['password']:
             update_session_auth_hash(self.request, self.object)
-        messages.success(
-            self.request, 
-            "Пользователь успешно изменен",
-            extra_tags='success'
-        )
+        messages.success(self.request, "Пользователь успешно изменен")
         return response
 
 
@@ -67,18 +80,38 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user.id == self.get_object().id
 
     def handle_no_permission(self):
-        messages.error(
-            self.request,
-            "У вас нет прав для изменения другого пользователя.",
-            extra_tags='alert-danger'
-        )
-        return redirect(self.success_url)
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                "Вы не авторизованы! Пожалуйста, выполните вход.",
+                extra_tags='alert-danger'
+            )
+            return redirect_to_login(
+                self.request.get_full_path(),
+                login_url=reverse(settings.LOGIN_URL))
+        else:
+            # Для авторизованных без прав показываем ошибку
+            messages.error(
+                self.request,
+                "У вас нет прав для изменения другого пользователя.",
+                extra_tags='alert-danger'
+            )
+            return redirect(self.success_url)
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
+        user_to_delete = self.get_object()
+        user = user_to_delete
 
-        messages.success(self.request, "Пользователь успешно удален")
+        if user.authored_tasks.exists() or user.assigned_tasks.exists():
+            messages.error(
+                request,
+                "Невозможно удалить пользователя, потому что он используется",
+                extra_tags='alert-danger'
+            )
+            return redirect(self.success_url)
+
+        user_to_delete.delete()
+        messages.success(request, "Пользователь успешно удален")
         return redirect(self.success_url)
 
 
