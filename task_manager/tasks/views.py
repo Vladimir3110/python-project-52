@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
-
-# from django.urls import reverse_lazy
 from django.views import View
+
+from task_manager.labels.models import Label
 
 from .forms import TaskForm
 from .models import Task, User
@@ -12,20 +12,25 @@ from .models import Task, User
 class TaskListView(LoginRequiredMixin, View):
     def get(self, request):
         params = request.GET
-        tasks = Task.objects.all()
+        tasks = Task.objects.all().prefetch_related('labels')
+        
         if status := params.get('status'):
             tasks = tasks.filter(status=status)
         if executor := params.get('executor'):
             tasks = tasks.filter(assigned_to=executor)
         if params.get('self_tasks'):
             tasks = tasks.filter(author=request.user)
+        if label_id := params.get('label'):
+            tasks = tasks.filter(labels__id=label_id)
         
         context = {
             'tasks': tasks,
             'statuses': Task.Status.choices,
             'executors': User.objects.all(),
+            'labels': Label.objects.all(),
             'selected_status': params.get('status'),
             'selected_executor': params.get('executor'),
+            'selected_label': params.get('label'),
             'self_tasks': params.get('self_tasks', False),
         }
         return render(request, 'tasks/task_list.html', context)

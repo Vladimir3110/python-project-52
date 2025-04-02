@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1 class="my-4">Удаление метки</h1>
+  <form action="{% url 'label_delete' label.pk %}" method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить {{ label.name }}?</p>
+    <input class="btn btn-danger" type="submit" value="Да, удалить">
+  </form>
+{% endblock %}

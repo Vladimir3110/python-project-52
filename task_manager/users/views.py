@@ -55,12 +55,6 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                 extra_tags='error'
             )
             return redirect(self.success_url)
-#        messages.error(
-#            self.request,
-#            "У вас нет прав для изменения другого пользователя.",
-#            extra_tags='error'
-#        )
-#        return redirect(self.success_url)
 
     def form_valid(self, form):
         response = super().form_valid(form)
