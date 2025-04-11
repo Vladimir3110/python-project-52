@@ -9,55 +9,51 @@
     <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}" role="button">Создать задачу</a>
 
     <!-- Фильтры -->
-<div class="card mb-3">
-    <div class="card-body bg-light">
-        <form method="get">
-            <div class="d-flex flex-column gap-3">
-                <!-- Статус -->
-                <div>
-                    <label class="form-label" for="id_status">Статус</label>
-                    <select name="status" class="form-select" id="id_status">
-                        <option value="">---------</option>
-                        {% for value, name in statuses %}
-                            <option value="{{ value }}" 
-                                {% if selected_status == value %}selected{% endif %}>
-                                {{ name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- Исполнитель -->
-                <div>
-                    <label class="form-label" for="id_executor">Исполнитель</label>
-                    <select name="executor" class="form-select" id="id_executor">
-                        <option value="">---------</option>
-                        {% for user in executors %}
-                            <option value="{{ user.id }}" {% if selected_executor == user.id|stringformat:"s" %}selected{% endif %}>
-                                {{ user.get_full_name|default:user.username }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Метка</label>
-                    <select 
-                        name="label" 
-                        class="form-select" 
-                        id="id_label">
-                        <option value="">---------</option>
-                        {% for label in labels %}
-                            <option value="{{ label.id }}" 
-                                {% if selected_label == label.id|stringformat:"s" %}selected{% endif %}>
-                                {{ label.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- Чекбокс -->
-                <div>
+    <form method="get">
+        <div class="card mb-3">
+            <div class="card-body bg-light">
+                <div class="d-flex flex-column gap-3">
+                    <!-- Статус -->
+                    <div>
+                        <label class="form-label" for="id_status">Статус</label>
+                        <select name="status" class="form-select" id="id_status">
+                            {% for value, name in filter.form.status.field.choices %}
+                                <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
+                                    {{ name|default:"---------" }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <!-- Исполнитель -->
+                    <div>
+                        <label class="form-label" for="id_executor">Исполнитель</label>
+                        <select name="executor" class="form-select" id="id_executor">
+                            <option value="">---------</option>
+                            {% for user in executors %}
+                                <option value="{{ user.id }}" 
+                                    {% if selected_executor == user.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ user.get_full_name|default:user.username }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <!-- Метка -->
+                    <div>
+                        <label class="form-label" for="id_label">Метка</label>
+                        <select name="label" class="form-select" id="id_label">
+                            <option value="">---------</option>
+                            {% for label in labels %}
+                                <option value="{{ label.id }}" 
+                                    {% if selected_label == label.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ label.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <!-- Чекбокс -->
                     <div class="form-check">
                         <input 
                             type="checkbox" 
@@ -69,16 +65,15 @@
                             Только свои задачи
                         </label>
                     </div>
-                </div>
-
-                <!-- Кнопка фильтра -->
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Показать">
+    
+                    <!-- Кнопка -->
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="Показать">
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+    </form>
 
     <!-- Таблица задач -->
     <table class="table table-striped">
@@ -94,7 +89,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for task in tasks %}
+            {% for task in filter.qs %}
             <tr>
                 <td>{{ task.id }}</td>
                 <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
@@ -124,4 +119,5 @@
         </tbody>
     </table>
 </div>
+
 {% endblock %}

@@ -2,65 +2,58 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
+from django_filters.views import FilterView
 
 from task_manager.labels.models import Label
 
+from .filters import TaskFilter
 from .forms import TaskForm
 from .models import Task, User
 
 
-class TaskListView(LoginRequiredMixin, View):
-    def get(self, request):
-        params = request.GET
-        tasks = Task.objects.all().prefetch_related('labels')
-        
-        if status := params.get('status'):
-            tasks = tasks.filter(status=status)
-        if executor := params.get('executor'):
-            tasks = tasks.filter(assigned_to=executor)
-        if params.get('self_tasks'):
-            tasks = tasks.filter(author=request.user)
-        if label_id := params.get('label'):
-            tasks = tasks.filter(labels__id=label_id)
-        
-        context = {
-            'tasks': tasks,
-            'statuses': Task.Status.choices,
+class TaskListView(FilterView):
+    model = Task
+    filterset_class = TaskFilter
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
             'executors': User.objects.all(),
             'labels': Label.objects.all(),
-            'selected_status': params.get('status'),
-            'selected_executor': params.get('executor'),
-            'selected_label': params.get('label'),
-            'self_tasks': params.get('self_tasks', False),
-        }
-        return render(request, 'tasks/task_list.html', context)
+            'selected_status': self.request.GET.get('status', ''),
+            'selected_assigned_to': self.request.GET.get('assigned_to', ''),
+            'selected_label': self.request.GET.get('label', ''),
+            'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
+        })
+        return context
+    
+    def get_filterset_kwargs(self, filterset_class):
+        kwargs = super().get_filterset_kwargs(filterset_class)
+        kwargs['request'] = self.request
+        kwargs['data'] = self.request.GET
+        return kwargs
 
 
 class TaskCreateView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = TaskForm()
-        return render(request, 'tasks/task_form.html', {'form': form})
-
     def post(self, request):
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.author = request.user
             task.save()
-            messages.success(request, 'Задача успешно создана')
+            form.save_m2m()
             return redirect('tasks:list')
+#        print("Form errors:", form.errors)
         return render(request, 'tasks/task_form.html', {'form': form})
 
 
 class TaskUpdateView(LoginRequiredMixin, View):
-    def get(self, request, pk):
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(instance=task)
-        return render(request, 'tasks/task_form.html', {'form': form})
-
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         form = TaskForm(request.POST, instance=task)
+        
         if form.is_valid():
             form.save()
             messages.success(request, 'Задача успешно изменена')
