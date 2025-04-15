@@ -11,17 +11,25 @@ jobs:
         python-version: [3.11.8]
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DJANGO_SETTINGS_MODULE: task_manager.settings
     steps:
       - uses: actions/checkout@v4
-      - name: Setup python
+      
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "uv"
       - name: Install uv and dependencies
         run: |
           pip install uv
-          make install
-      - name: Run linter ruff
+          make install  # uv sync
+
+      - name: Run migrations
+        run: make migrate
+
+      - name: Run linter
         run: make lint
+
       - name: Run tests
         run: make test
