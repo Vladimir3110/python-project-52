@@ -22,6 +22,6 @@ jobs:
           pip install uv
           make install
       - name: Run linter ruff
-        run: make linter
+        run: make lint
       - name: Run unit-tests
         run: make test
