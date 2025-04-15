@@ -9,9 +9,6 @@ jobs:
     strategy:
       matrix:
         python-version: [3.11.8]
-    env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DJANGO_SETTINGS_MODULE: task_manager.settings
     steps:
       - uses: actions/checkout@v4
       
