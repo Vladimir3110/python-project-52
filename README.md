@@ -26,7 +26,7 @@
 | [django-bootstrap5](https://django-bootstrap5.readthedocs.io/en/latest/) |  24.3   |
 | dj-database-url                                                          |  2.3.0  |
 | django-filter                                                            |  25.1   |
-| ruff                                                                     |  0.9.9  |
+| [ruff](https://docs.astral.sh/ruff/)                                     |  0.9.9  |
 | gunicorn                                                                 |  23.0.0 |
 | psycopg2-binary                                                          |  2.9.10 |
 | python-dotenv                                                            |  1.0.1  |
