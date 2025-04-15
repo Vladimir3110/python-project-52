@@ -23,5 +23,5 @@ jobs:
           make install
       - name: Run linter ruff
         run: make lint
-      - name: Run unit-tests
+      - name: Run tests
         run: make test
