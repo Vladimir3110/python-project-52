@@ -9,3 +9,24 @@
 ## Описание проекта
 
 **«Task Manager»** – система управления задачами. Она позволяет ставить задачи, назначать исполнителей и менять их статусы. Для работы с системой требуется регистрация и аутентификация.
+
+Клонируйте репозиторий на свой компьютер.:<br/>`git@github.com:Vladimir3110/python-project-52.git`
+
+Перейти в репозиторий<br/>`cd python-project-52`
+
+Для управления зависимостями в проектах<br/>`make install`
+
+### Для этого установите следующие инструменты:
+
+| Tools                                                                    | Version |
+|:------------------------------------------------------------------------:|:-------:|
+| python                                                                   |  3.11   |
+| [uv](https://docs.astral.sh/uv/)                                         |  0.6.3  |
+| [django](https://www.djangoproject.com/)                                 |  5.1.6  |
+| [django-bootstrap5](https://django-bootstrap5.readthedocs.io/en/latest/) |  24.3   |
+| dj-database-url                                                          |  2.3.0  |
+| django-filter                                                            |  25.1   |
+| ruff                                                                     |  0.9.9  |
+| gunicorn                                                                 |  23.0.0 |
+| psycopg2-binary                                                          |  2.9.10 |
+| python-dotenv                                                            |  1.0.1  |
