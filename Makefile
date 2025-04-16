@@ -12,11 +12,6 @@ test:
 	python -m coverage report
 	python -m coverage xml
 
-upload-coverage:
-	curl -L https://qlty.sh/upload -o upload
-	chmod +x upload
-	bash ./upload --token $$QLTY_TOKEN --format coverage.py
-
 .PHONY: test upload-coverage
 
 migrate:

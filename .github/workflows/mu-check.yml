@@ -34,9 +34,5 @@ jobs:
       - name: Run linter
         run: make lint
 
-      - name: Run tests and upload coverage
-        env:
-          QLTY_TOKEN: ${{ secrets.QLTY_TOKEN }}
-        run: |
-          make test
-          make upload-coverage
+      - name: Run tests
+        run: make test
