@@ -9,8 +9,7 @@ lint:
 
 test:
 	coverage run --source='.' manage.py test
-	coverage report
-	coverage xml
+	coverage lcov -o reports/lcov.info
 
 upload-coverage:
 	curl -L https://qlty.sh/upload -o upload

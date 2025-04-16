@@ -6,7 +6,10 @@ dist/
 *.pyc
 .venv/
 task_manager/__pycache__/
+.coveragerc
 .coverage
+coverage.lcov
+reports
 .qlty/
 coverage.xml
 htmlcov/
