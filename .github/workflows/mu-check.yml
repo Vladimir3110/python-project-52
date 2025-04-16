@@ -33,3 +33,9 @@ jobs:
 
       - name: Run tests
         run: make test
+
+      - name: Upload coverage
+        run: |
+          curl -L https://qlty.sh/upload -o upload
+          chmod +x upload
+          ./upload --token $QLTY_TOKEN --format coverage.xml
