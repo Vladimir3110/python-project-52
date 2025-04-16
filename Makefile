@@ -8,7 +8,9 @@ lint:
 	uv run ruff check .
 
 test:
-	uv run python manage.py test
+	coverage run --source='.' manage.py test
+	coverage report
+	coverage xml
 
 migrate:
 	uv run python manage.py makemigrations && \
