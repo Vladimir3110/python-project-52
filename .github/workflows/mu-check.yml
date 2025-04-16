@@ -36,6 +36,7 @@ jobs:
 
       - name: Upload coverage
         run: |
-          curl -L https://qlty.sh/upload -o upload
-          chmod +x upload
-          ./upload --token $QLTY_TOKEN --format coverage.xml
+          curl -X POST \
+            -H "Authorization: Bearer $QLTY_TOKEN" \
+            -F "coverage=@coverage.xml" \
+            https://api.qlty.sh/v1/coverage
