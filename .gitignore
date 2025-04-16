@@ -11,6 +11,7 @@ coverage.xml
 htmlcov/
 *.xml
 .pytest_cache/
+upload
 .python_version
 .env
 .ruff_cache
