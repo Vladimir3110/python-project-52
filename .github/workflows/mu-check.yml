@@ -39,3 +39,13 @@ jobs:
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: reports/lcov.info
+          skip-errors: false
+        
+      - name: Debug token
+        run: |
+          echo "QLTY_TOKEN exists: ${{ secrets.QLTY_COVERAGE_TOKEN != '' }}"
+        
+      - name: Debug lcov file
+        run: |
+          file reports/lcov.info
+          wc -l reports/lcov.info
