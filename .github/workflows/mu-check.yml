@@ -34,9 +34,8 @@ jobs:
       - name: Run tests
         run: make test
 
-      - name: Upload coverage
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer $QLTY_TOKEN" \
-            -F "coverage=@coverage.xml" \
-            https://api.qlty.sh/v1/coverage
+#      - name: Upload coverage
+      - uses: qltysh/qlty-action/coverage@main
+        with:
+          coverage-token: {{secrets.QLTY_COVERAGE_TOKEN}}
+          files: reports/lcov.info
