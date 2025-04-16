@@ -34,8 +34,3 @@ jobs:
 
       - name: Run tests
         run: make test
-      
-      - name: Upload coverage
-        env:
-          QLTY_TOKEN: ${{ secrets.QLTY_TOKEN }}
-        run: make upload-coverage
