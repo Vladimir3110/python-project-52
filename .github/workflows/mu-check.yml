@@ -23,7 +23,7 @@ jobs:
       - name: Install uv and dependencies
         run: |
           pip install uv
-          uv pip install --system .
+          uv pip install --system . coverage
 
       - name: Run migrations
         run: make migrate
