@@ -36,6 +36,4 @@ jobs:
           QLTY_TOKEN: ${{ secrets.QLTY_TOKEN }}
         run: |
           make test
-          curl -Os https://qlty.sh/upload
-          chmod +x upload
-          ./upload --token $QLTY_TOKEN --format coverage.py
+          make upload-coverage

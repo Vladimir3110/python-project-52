@@ -12,6 +12,11 @@ test:
 	coverage report
 	coverage xml
 
+upload-coverage:
+	curl -Os https://qlty.sh/upload
+	chmod +x upload
+	./upload --token ${QLTY_TOKEN} --format coverage.py
+
 migrate:
 	uv run python manage.py makemigrations && \
 	uv run python manage.py migrate
