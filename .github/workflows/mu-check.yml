@@ -23,8 +23,7 @@ jobs:
       - name: Install uv and dependencies
         run: |
           pip install uv
-          uv pip install django
-          uv pip install coverage
+          uv pip install --system -r requirements.txt django coverage
           make install  # uv sync
           
 
@@ -36,3 +35,8 @@ jobs:
 
       - name: Run tests
         run: make test
+      
+      - name: Upload coverage
+        env:
+          QLTY_TOKEN: ${{ secrets.QLTY_TOKEN }}
+        run: make upload-coverage
