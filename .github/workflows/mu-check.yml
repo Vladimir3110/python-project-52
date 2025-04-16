@@ -31,5 +31,11 @@ jobs:
       - name: Run linter
         run: make lint
 
-      - name: Run tests
-        run: make test
+      - name: Run tests and upload coverage
+        env:
+          QLTY_TOKEN: ${{ secrets.QLTY_TOKEN }}
+        run: |
+          make test
+          curl -Os https://qlty.sh/upload
+          chmod +x upload
+          ./upload --token $QLTY_TOKEN --format coverage.py

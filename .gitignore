@@ -8,6 +8,8 @@ dist/
 task_manager/__pycache__/
 .coverage
 coverage.xml
+htmlcov/
+*.xml
 .pytest_cache/
 .python_version
 .env
