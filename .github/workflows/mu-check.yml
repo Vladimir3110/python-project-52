@@ -23,7 +23,7 @@ jobs:
       - name: Install uv and dependencies
         run: |
           pip install uv
-          uv pip install --system dj-database-url django coverage
+          uv pip install --system dj-database-url python-dotenv django coverage
           
 
       - name: Run migrations
