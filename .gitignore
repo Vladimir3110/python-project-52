@@ -7,7 +7,7 @@ dist/
 .venv/
 task_manager/__pycache__/
 .coverage
-.qlity/
+.qlty/
 coverage.xml
 htmlcov/
 *.xml
