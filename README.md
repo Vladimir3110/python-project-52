@@ -30,3 +30,6 @@
 | gunicorn                                                                 |  23.0.0 |
 | psycopg2-binary                                                          |  2.9.10 |
 | python-dotenv                                                            |  1.0.1  |
+| coverage                                                                 |  7.8.0  |
+| pytest                                                                   |  8.3.5  |
+| pytest-django                                                            |  4.11.1 |
