@@ -147,9 +147,10 @@ AUTHENTICATION_BACKENDS = [
 
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 
-ROLLBAR = {
-    'access_token': ACCESS_TOKEN,
-    'environment': 'development' if DEBUG else 'production',
-    'code_version': '1.0',
-    'root': BASE_DIR,
-}
+if not DEBUG:
+    ROLLBAR = {
+        'access_token': ACCESS_TOKEN,
+        'environment': 'development' if DEBUG else 'production',
+        'code_version': '1.0',
+        'root': BASE_DIR,
+    }

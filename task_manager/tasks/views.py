@@ -37,6 +37,10 @@ class TaskListView(FilterView):
 
 
 class TaskCreateView(LoginRequiredMixin, View):
+    def get(self, request):
+        form = TaskForm()
+        return render(request, 'tasks/task_form.html', {'form': form})
+
     def post(self, request):
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -44,6 +48,7 @@ class TaskCreateView(LoginRequiredMixin, View):
             task.author = request.user
             task.save()
             form.save_m2m()
+            messages.success(request, 'Задача успешно создана!')
             return redirect('tasks:list')
 #        print("Form errors:", form.errors)
         return render(request, 'tasks/task_form.html', {'form': form})

@@ -9,6 +9,7 @@ lint:
 
 test:
 	coverage run --source='.' manage.py test
+	coverage report
 	coverage lcov -o reports/lcov.info
 
 upload-coverage:
