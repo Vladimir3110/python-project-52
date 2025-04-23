@@ -33,4 +33,4 @@
 | coverage                                                                 |  7.8.0  |
 | pytest                                                                   |  8.3.5  |
 | pytest-django                                                            |  4.11.1 |
-| [rollbar] (https://rollbar.com)                                          |  1.3.0  |
+| [rollbar](https://rollbar.com)                                           |  1.3.0  |
