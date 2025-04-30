@@ -23,7 +23,7 @@
 |:------------------------------------------------------------------------:|:-------:|
 | python                                                                   |  3.11   |
 | [uv](https://docs.astral.sh/uv/)                                         |  0.6.3  |
-| [django](https://www.djangoproject.com/)                                 |  5.1.6  |
+| [django](https://www.djangoproject.com/)                                 |  5.2    |
 | [django-bootstrap5](https://django-bootstrap5.readthedocs.io/en/latest/) |  24.3   |
 | dj-database-url                                                          |  2.3.0  |
 | django-filter                                                            |  25.1   |
