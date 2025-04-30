@@ -216,7 +216,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "dj-database-url", specifier = ">=2.3.0" },
-    { name = "django", specifier = ">=5.1.6" },
+    { name = "django", specifier = ">=5.2" },
     { name = "django-bootstrap5", specifier = ">=24.3" },
     { name = "django-filter", specifier = ">=25.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },
@@ -230,7 +230,7 @@ dev = [
     { name = "coverage", specifier = ">=7.8.0" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-django", specifier = ">=4.11.1" },
-    { name = "ruff", specifier = ">=0.9.9" },
+    { name = "ruff", specifier = ">=0.11.7" },
 ]
 
 [[package]]
