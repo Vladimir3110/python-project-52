@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -119,12 +121,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru-ru'
+# LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+LOCALE_PATHS = [BASE_DIR / 'locale']
+
+LANGUAGES = [
+    ('en', ('English')),
+    ('ru', ('Russian')),
+]
 
 
 # Static files (CSS, JavaScript, Images)

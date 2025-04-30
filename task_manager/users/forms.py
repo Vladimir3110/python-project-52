@@ -1,26 +1,29 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(
-        widget=forms.PasswordInput, label="Пароль",
-        help_text="Ваш пароль должен содержать как минимум 3 символа.")
+        widget=forms.PasswordInput, label=_("Password"),
+        help_text=_("Your password must contain at least 3 characters."))
     password_confirm = forms.CharField(
-        widget=forms.PasswordInput, label="Подтверждение пароля",
-        help_text="Для подтверждения введите, пожалуйста, пароль ещё раз.")
+        widget=forms.PasswordInput, label=_("Password confirmation"),
+        help_text=_("Please enter your password again for verification."))
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username']
         labels = {
-            'first_name': 'Имя',
-            'last_name': 'Фамилия',
-            'username': 'Имя пользователя',
+            'first_name': _("First name"),
+            'last_name': _("Last name"),
+            'username': _("Username"),
         }
         help_texts = {
-            'username': "Обязательное поле. Не более 150 символов. \
-            Только буквы, цифры и символы @/./+/-/_.",
+            'username': _(
+                "Required. 150 characters or fewer. "
+                "Letters, digits and @/./+/-/_ only."
+            ),
         }
 
     def clean(self):
@@ -28,7 +31,7 @@ class UserRegistrationForm(forms.ModelForm):
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
         if password != password_confirm:
-            raise forms.ValidationError("Пароли не совпадают")
+            raise forms.ValidationError_("The passwords do not match")
         return cleaned_data
     
     def save(self, commit=True):

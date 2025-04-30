@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 <h1>{{ task.name }}</h1>
@@ -7,14 +8,14 @@
     <div class="card-body">
         <p class="card-text">{{ task.description }}</p>
         <dl class="row">
-            <dt class="col-sm-3">Статус:</dt>
+            <dt class="col-sm-3">{% trans "Status" %}:</dt>
             <dd class="col-sm-9">{{ task.get_status_display }}</dd>
-            <dt class="col-sm-3">Автор:</dt>
+            <dt class="col-sm-3">{% trans "Author" %}:</dt>
             <dd class="col-sm-9">{{ task.author }}</dd>
-            <dt class="col-sm-3">Исполнитель:</dt>
-            <dd class="col-sm-9">{{ task.assigned_to|default:"Не назначен" }}</dd>
+            <dt class="col-sm-3">{% trans "Assignee" %}:</dt>
+            <dd class="col-sm-9">{{ task.assigned_to|default:_("Not assigned") }}</dd>
         </dl>
-        <a href="{% url 'tasks:update' task.id %}" class="btn btn-secondary">Изменить</a>
+        <a href="{% url 'tasks:update' task.id %}" class="btn btn-secondary">{% trans "Edit" %}</a>
     </div>
 </div>
 {% endblock %}

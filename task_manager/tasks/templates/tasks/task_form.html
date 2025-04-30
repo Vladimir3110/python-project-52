@@ -1,17 +1,18 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
     <h2 class="my-4">
-        {% if form.instance.id %}Изменить{% else %}Создать{% endif %} задачу
+        {% if form.instance.id %}{% trans "Update task" %}{% else %}{% trans "Create task" %}{% endif %}
     </h2>
 
     <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary">
-            {% if form.instance.id %}Изменить{% else %}Создать{% endif %}
+            {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
         </button>
     </form>
 </div>

@@ -1,12 +1,13 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Задачи</h1>
+    <h1 class="my-4">{% trans "Tasks" %}</h1>
     
     <!-- Кнопка создания -->
-    <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}" role="button">Создать задачу</a>
+    <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}" role="button">{% trans "Create task" %}</a>
 
     <!-- Фильтры -->
     <form method="get">
@@ -15,7 +16,7 @@
                 <div class="d-flex flex-column gap-3">
                     <!-- Статус -->
                     <div>
-                        <label class="form-label" for="id_status">Статус</label>
+                        <label class="form-label" for="id_status">{% trans "Status" %}</label>
                         <select name="status" class="form-select" id="id_status">
                             {% for value, name in filter.form.status.field.choices %}
                                 <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
@@ -27,7 +28,7 @@
     
                     <!-- Исполнитель -->
                     <div>
-                        <label class="form-label" for="id_executor">Исполнитель</label>
+                        <label class="form-label" for="id_executor">{% trans "Executor" %}</label>
                         <select name="executor" class="form-select" id="id_executor">
                             <option value="">---------</option>
                             {% for user in executors %}
@@ -41,7 +42,7 @@
     
                     <!-- Метка -->
                     <div>
-                        <label class="form-label" for="id_label">Метка</label>
+                        <label class="form-label" for="id_label">{% trans "Label" %}</label>
                         <select name="label" class="form-select" id="id_label">
                             <option value="">---------</option>
                             {% for label in labels %}
@@ -62,13 +63,13 @@
                             name="self_tasks"
                             {% if self_tasks %}checked{% endif %}>
                         <label class="form-check-label" for="id_self_tasks">
-                            Только свои задачи
+                            {% trans "Only my tasks" %}
                         </label>
                     </div>
     
                     <!-- Кнопка -->
                     <div>
-                        <input class="btn btn-primary" type="submit" value="Показать">
+                        <input class="btn btn-primary" type="submit" value="{% trans 'Show' %}">
                     </div>
                 </div>
             </div>
@@ -80,11 +81,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Имя</th>
-                <th>Статус</th>
-                <th>Автор</th>
-                <th>Исполнитель</th>
-                <th>Дата создания</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Author" %}</th>
+                <th>{% trans "Executor" %}</th>
+                <th>{% trans "Creation date" %}</th>
                 <th></th>
             </tr>
         </thead>
@@ -106,11 +107,11 @@
                 <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
                     <div>
-                        <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-link">Изменить</a>
+                        <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-link">{% trans "Edit" %}</a>
                         <br>
                     <a href="{% url 'tasks:delete' task.id %}" 
                        class="btn btn-sm btn-link">
-                        <i class="bi bi-trash"></i> Удалить
+                        <i class="bi bi-trash"></i> {% trans "Delete" %}
                     </a>
                     </div>
                 </td>

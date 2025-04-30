@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from .models import Label
 
@@ -8,5 +9,5 @@ class LabelForm(forms.ModelForm):
         model = Label
         fields = ['name']
         labels = {
-            'name': 'Имя'
+            'name': _("Name")
         }

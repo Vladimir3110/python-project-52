@@ -1,11 +1,12 @@
 {% extends "../layout.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1>Выход</h1>
+<h1>{% trans "Logout" %}</h1>
 
 <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
-    <button type="submit">Logout</button>
+    <button type="submit">{% trans "Logout" %}</button>
 </form>
 
 {% endblock %}

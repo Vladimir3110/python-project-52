@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
     <h1 class="mb-4">
-        {% if object %}Изменение метки{% else %}Создать метку{% endif %}
+        {% if object %}{% trans "Update label" %}{% else %}{% trans "Create label" %}{% endif %}
     </h1>
 
     <form method="post">
@@ -12,7 +13,7 @@
         {% bootstrap_form form %}
         
         <button type="submit" class="btn btn-primary">
-            {% if object %}Изменить{% else %}Создать{% endif %}
+            {% if object %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
         </button>
     </form>
 </div>

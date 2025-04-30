@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
@@ -53,7 +54,7 @@ class LabelTests(TestCase):
         self.login()
         response = self.client.get(reverse('label_create'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Создать метку')
+        self.assertContains(response, _('Create label'))
         self.assertTemplateUsed(response, 'labels/label_form.html')
 
     def test_successful_creation_of_new_label(self):
@@ -65,7 +66,7 @@ class LabelTests(TestCase):
         self.assertRedirects(response, reverse('labels_list'))
         self.assertEqual(Label.objects.count(), 2)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно создана')
+        self.assertEqual(str(messages[0]), _('Label created successfully'))
 
     # Тесты обновления меток
     def test_successful_label_update(self):
@@ -79,7 +80,7 @@ class LabelTests(TestCase):
         self.label.refresh_from_db()
         self.assertEqual(self.label.name, 'critical bug')
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно изменена')
+        self.assertEqual(str(messages[0]), _('Label updated successfully'))
 
     # Тесты удаления меток
     def test_successful_removal_of_unused_label(self):
@@ -91,7 +92,7 @@ class LabelTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Label.objects.count(), 1)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно удалена')
+        self.assertEqual(str(messages[0]), _('Label deleted successfully'))
 
     def test_protection_from_deleting_used_label(self):
         """Проверка запрета удаления связанной с задачей метки"""
@@ -102,7 +103,7 @@ class LabelTests(TestCase):
         self.assertEqual(Label.objects.count(), 1)
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 
-                         'Невозможно удалить метку, связанную с задачей')
+                         _('Cannot delete label associated with tasks'))
 
     # Тесты авторизации
     def test_access_to_create_tag_without_authorization(self):

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django_filters.views import FilterView
 
@@ -48,7 +49,7 @@ class TaskCreateView(LoginRequiredMixin, View):
             task.author = request.user
             task.save()
             form.save_m2m()
-            messages.success(request, 'Задача успешно создана!')
+            messages.success(request, _('Task created successfully!'))
             return redirect('tasks:list')
 #        print("Form errors:", form.errors)
         return render(request, 'tasks/task_form.html', {'form': form})
@@ -61,7 +62,7 @@ class TaskUpdateView(LoginRequiredMixin, View):
         
         if form.is_valid():
             form.save()
-            messages.success(request, 'Задача успешно изменена')
+            messages.success(request, _('Task updated successfully'))
             return redirect('tasks:list')
         return render(request, 'tasks/task_form.html', {'form': form})
 
@@ -71,7 +72,7 @@ class TaskDeleteView(LoginRequiredMixin, View):
         """Общая проверка перед любым методом"""
         self.task = get_object_or_404(Task, pk=kwargs['pk'])
         if self.task.author != request.user:
-            messages.error(request, 'Задачу может удалить только ее автор')
+            messages.error(request, _('Only task author can delete it'))
             return redirect('tasks:list')
         return super().dispatch(request, *args, **kwargs)
 
@@ -81,7 +82,7 @@ class TaskDeleteView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         self.task.delete()
-        messages.success(request, 'Задача успешно удалена')
+        messages.success(request, _('Task deleted successfully'))
         return redirect('tasks:list')
 
 
