@@ -3,6 +3,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -58,6 +59,10 @@ class UserDeleteView(
         return user.authored_tasks.exists() or user.assigned_tasks.exists()
 
     def post(self, request, *args, **kwargs):
+        if self.check_protected_condition(self.get_object()):
+            messages.error(request, self.protected_message)
+            return redirect(self.protected_redirect)
+        
         response = super().post(request, *args, **kwargs)
         messages.success(request, _("User deleted successfully"))
         return response
