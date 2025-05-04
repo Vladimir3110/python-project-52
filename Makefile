@@ -23,6 +23,9 @@ migrate:
 	uv run python manage.py makemigrations && \
 	uv run python manage.py migrate
 
+start-server:
+    .venv/bin/python manage.py runserver 0.0.0.0:3000
+
 start-render:
 	gunicorn task_manager.wsgi:application --bind 0.0.0.0:8000
 
