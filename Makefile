@@ -1,6 +1,9 @@
 install:
 	uv sync
 
+dev: install
+	uv run python manage.py runserver 0.0.0.0:3000
+
 build:
 	./build.sh
 
