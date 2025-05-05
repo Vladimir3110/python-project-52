@@ -1,7 +1,7 @@
+import pytest
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
-from django.core.management import call_command
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -9,9 +9,9 @@ from task_manager.tasks.models import Task
 
 
 class TestUser(TestCase):
-    def setUp(self):
-        call_command('loaddata', 'users.json')
+    fixtures = ["users.json"]
 
+    @pytest.mark.django_db(transaction=True)
     def test_load_users(self):
         # Проверка загрузки данных из фикстуры
         users = User.objects.all()
