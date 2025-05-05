@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
+from django.core.management import call_command
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -8,7 +9,8 @@ from task_manager.tasks.models import Task
 
 
 class TestUser(TestCase):
-    fixtures = ['users.json']
+    def setUp(self):
+        call_command('loaddata', 'users.json')
 
     def test_load_users(self):
         # Проверка загрузки данных из фикстуры
