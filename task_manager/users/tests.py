@@ -1,4 +1,3 @@
-import pytest
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
@@ -11,7 +10,6 @@ from task_manager.tasks.models import Task
 class TestUser(TestCase):
     fixtures = ["users.json"]
 
-    @pytest.mark.django_db(transaction=True)
     def test_load_users(self):
         users = User.objects.all()
 #        print("Users in DB:", list(users))

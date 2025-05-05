@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.11.8]
+        python-version: [3.11]
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DJANGO_SETTINGS_MODULE: task_manager.settings
@@ -24,7 +24,12 @@ jobs:
         run: |
           pip install uv
           uv pip install --system .[dev]
-          uv pip install --system . coverage
+          uv pip install --system coverage
+        
+      - name: Verify installations
+        run: |
+          uv pip list
+          python -c "import pytest; print(f'pytest {pytest.__version__} installed')"
 
       - name: Run migrations
         run: make migrate
