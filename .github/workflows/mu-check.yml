@@ -26,6 +26,9 @@ jobs:
           uv pip install --system ".[dev]"
           uv pip install --system coverage
         
+      - name: Install pytest explicitly
+        run: uv pip install --system pytest pytest-django
+
       - name: Verify installations
         run: |
           uv pip list
