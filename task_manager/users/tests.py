@@ -13,7 +13,6 @@ class TestUser(TestCase):
 
     @pytest.mark.django_db(transaction=True)
     def test_load_users(self):
-        # Проверка загрузки данных из фикстуры
         users = User.objects.all()
 #        print("Users in DB:", list(users))
 #        print("Loaded users:", list(users))
