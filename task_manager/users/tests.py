@@ -14,7 +14,8 @@ class TestUser(TestCase):
     def test_load_users(self):
         # Проверка загрузки данных из фикстуры
         users = User.objects.all()
-        self.assertEqual(len(users), 2)
+#        print("Loaded users:", list(users))
+        self.assertEqual(len(users), 3)
 
 
 class UserCRUDTests(TestCase):
@@ -26,9 +27,9 @@ class UserCRUDTests(TestCase):
 
     def test_user_registration(self):
         initial_users = User.objects.count()
-        self.assertEqual(initial_users, 2)  # Два пользователя из фикстуры
+        self.assertEqual(initial_users, 3)  # Три пользователя из фикстуры
 
-        # Регистрируем третьего пользователя
+        # Регистрируем четвертого пользователя
         url = reverse('user_create')
         data = {
             'username': 'newuser',

@@ -14,10 +14,10 @@ class TaskCRUDTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.get(pk=16)
-        cls.status = Status.objects.get(pk=8)
-        cls.label = Label.objects.get(pk=7)
-        cls.task = Task.objects.get(pk=9)
+        cls.user = User.objects.get(pk=19)
+        cls.status = Status.objects.get(pk=9)
+        cls.label = Label.objects.get(pk=8)
+        cls.task = Task.objects.get(pk=11)
 
     def setUp(self):
         self.client.force_login(self.user)
