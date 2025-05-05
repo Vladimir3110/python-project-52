@@ -7,6 +7,16 @@ from django.urls import reverse
 from task_manager.tasks.models import Task
 
 
+class TestUser(TestCase):
+    """Тесты для проверки начальной загрузки пользователей"""
+    fixtures = ['users.json']
+
+    def test_load_users(self):
+        # Проверка загрузки данных из фикстуры
+        users = User.objects.all()
+        self.assertEqual(len(users), 2)
+
+
 class UserCRUDTests(TestCase):
     fixtures = ['users.json']
 
