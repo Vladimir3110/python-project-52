@@ -8,12 +8,12 @@ from task_manager.tasks.models import Task
 
 
 class TestUser(TestCase):
-    """Тесты для проверки начальной загрузки пользователей"""
     fixtures = ['users.json']
 
     def test_load_users(self):
         # Проверка загрузки данных из фикстуры
         users = User.objects.all()
+#        print("Users in DB:", list(users))
 #        print("Loaded users:", list(users))
         self.assertEqual(len(users), 3)
 
