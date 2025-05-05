@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 import dj_database_url
@@ -92,11 +93,30 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
+# DATABASES = {
+#    'default': dj_database_url.config(
+#        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+#    )
+#}
+
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        conn_max_age=600,
+        conn_health_checks=True
     )
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        'OPTIONS': {
+            'timeout': 30
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
