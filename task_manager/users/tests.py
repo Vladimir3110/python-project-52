@@ -14,6 +14,7 @@ class TestUser(TestCase):
         users = User.objects.all()
 #        print("Users in DB:", list(users))
 #        print("Loaded users:", list(users))
+        print(f"Пользователи в базе данных: {list(users)}")
         self.assertEqual(len(users), 3)
 
 
