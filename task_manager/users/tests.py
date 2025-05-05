@@ -15,9 +15,10 @@ class UserCRUDTests(TestCase):
         self.client = Client()
 
     def test_user_registration(self):
-        """
-        Тест регистрации нового пользователя (Create).
-        """
+        initial_users = User.objects.count()
+        self.assertEqual(initial_users, 2)  # Два пользователя из фикстуры
+
+        # Регистрируем третьего пользователя
         url = reverse('user_create')
         data = {
             'username': 'newuser',
@@ -27,12 +28,14 @@ class UserCRUDTests(TestCase):
             'last_name': 'User'
         }
         response = self.client.post(url, data)
+
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.count(), initial_users + 1)
         self.assertTrue(User.objects.filter(username='newuser').exists())
-        
+
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), "Пользователь успешно "
-        "зарегистрирован")
+        self.assertEqual(str(messages[0]), 
+                         "Пользователь успешно зарегистрирован")
 
     def test_user_update(self):
         self.client.login(username='testuser', password='testpassword123')
