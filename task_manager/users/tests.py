@@ -17,8 +17,8 @@ class TestUser(TestCase):
     def test_load_users(self):
         User = get_user_model()
         users = User.objects.all()
-#        print("Users in DB:", list(users))
-#        print("Loaded users:", list(users))
+        print("Users in DB:", list(users))
+        print("Loaded users:", list(users))
         self.assertEqual(len(users), 3)
 
 
