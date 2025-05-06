@@ -8,7 +8,6 @@ lint:
 	uv run ruff check .
 
 test:
-	coverage run --source='.' manage.py test
 	coverage run -m pytest
 	coverage report
 	coverage lcov -o reports/lcov.info
