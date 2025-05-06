@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 class TestUser(TestCase):
-    fixtures = ["users.json", "labels.json", "tasks.json"]
+    fixtures = ["users.json", "labels.json", "statuses.json", "tasks.json"]
 
     def test_load_users(self):
         User = get_user_model()
