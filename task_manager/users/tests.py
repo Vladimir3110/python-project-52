@@ -1,16 +1,21 @@
 from django.conf import settings
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
 
 from task_manager.tasks.models import Task
 
+User = get_user_model()
+
 
 class TestUser(TestCase):
-    fixtures = ["users.json", 'tasks.json', 'statuses.json']
+    fixtures = ["users.json", "labels.json", "tasks.json"]
 
     def test_load_users(self):
+        User = get_user_model()
         users = User.objects.all()
 #        print("Users in DB:", list(users))
 #        print("Loaded users:", list(users))
