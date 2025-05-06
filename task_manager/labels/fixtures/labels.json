@@ -1,10 +1,26 @@
 [
 {
     "model": "labels.label",
-    "pk": 8,
+    "pk": 1,
     "fields": {
         "name": "Bug",
-        "created_at": "2025-05-05T17:57:28.613Z"
+        "created_at": "2025-05-05T23:41:33.930Z"
+    }
+},
+{
+    "model": "labels.label",
+    "pk": 2,
+    "fields": {
+        "name": "Feature",
+        "created_at": "2025-05-05T23:41:53.621Z"
+    }
+},
+{
+    "model": "labels.label",
+    "pk": 3,
+    "fields": {
+        "name": "Improvement",
+        "created_at": "2025-05-05T23:42:12.859Z"
     }
 }
 ]
