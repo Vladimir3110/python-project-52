@@ -8,7 +8,7 @@ from task_manager.tasks.models import Task
 
 
 class TestUser(TestCase):
-    fixtures = ["users.json"]
+    fixtures = ["users.json", 'tasks.json', 'statuses.json']
 
     def test_load_users(self):
         users = User.objects.all()
