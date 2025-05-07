@@ -178,6 +178,3 @@ if not DEBUG:
         'code_version': '1.0',
         'root': BASE_DIR,
     }
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
