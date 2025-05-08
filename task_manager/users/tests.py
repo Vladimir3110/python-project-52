@@ -12,7 +12,7 @@ from task_manager.tasks.models import Task
 
 
 class UserCRUDTests(TestCase):
-    fixtures = ['users.json', "labels.json", "statuses.json", "tasks.json"]
+    fixtures = ['/task_manager/users/fixtures/users.json']
 
     def setUp(self):
         self.user = User.objects.get(username='testuser')
