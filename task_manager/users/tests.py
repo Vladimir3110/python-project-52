@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 # from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
+from django.core.management import call_command
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -13,6 +14,10 @@ User = get_user_model()
 
 class TestUser(TestCase):
     fixtures = ["users.json", "labels.json", "statuses.json", "tasks.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command('loaddata', 'users.json')
 
     def test_load_users(self):
         User = get_user_model()
