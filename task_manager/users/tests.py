@@ -23,8 +23,13 @@ class UserCRUDTests(TestCase):
 #        assert len(users) == 3
 
     def setUp(self):
-        self.user = User.objects.get(username='testuser')
         self.client = Client()
+        self.user = get_user_model().objects.get(pk=1)
+        self.user2 = get_user_model().objects.get(pk=2)
+        self.user3 = get_user_model().objects.get(pk=3)
+        self.users_count = get_user_model().objects.count()
+#        self.user1 = User.objects.get(username='testuser')
+#        self.client = Client()
 
     def test_user_registration(self):
         initial_users = User.objects.all()
