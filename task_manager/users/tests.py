@@ -1,14 +1,14 @@
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+# from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
 
 from task_manager.tasks.models import Task
 
-# from django.contrib.auth import get_user_model
-
-# User = get_user_model()
+User = get_user_model()
 
 
 class UserCRUDTests(TestCase):
@@ -19,10 +19,9 @@ class UserCRUDTests(TestCase):
         self.client = Client()
 
     def test_user_registration(self):
-        initial_users = User.objects.count()
-        self.assertEqual(initial_users, 3)  # Три пользователя из фикстуры
+        initial_users = User.objects.all()
+        self.assertEqual(initial_users.count(), 3)
 
-        # Регистрируем четвертого пользователя
         url = reverse('user_create')
         data = {
             'username': 'newuser',
@@ -34,7 +33,7 @@ class UserCRUDTests(TestCase):
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(User.objects.count(), initial_users + 1)
+        self.assertEqual(User.objects.count(), 4)
         self.assertTrue(User.objects.filter(username='newuser').exists())
 
         messages = list(get_messages(response.wsgi_request))
@@ -42,17 +41,33 @@ class UserCRUDTests(TestCase):
                          "Пользователь успешно зарегистрирован")
 
     def test_user_update(self):
-        self.client.login(username='testuser', password='testpassword123')
-        response = self.client.post(reverse('user_update', args=[self.user.id]),
-                                 {
-            'username': 'testuser',
-            'first_name': 'Updated',
-            'last_name': 'User',
-        })
-    
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.user.first_name, 'Test')
+
+        login_success = self.client.login(
+            username='testuser', 
+            password='testpass123'
+        )
+        self.assertTrue(login_success)
+
+        response = self.client.post(
+            reverse('user_update', args=[self.user.id]),
+            {
+                'username': 'testuser',
+                'first_name': 'Updated',
+                'last_name': 'User',
+                'password1': 'new_pass123',
+                'password2': 'new_pass123'
+            },
+            follow=True
+        )
+
+        self.assertRedirects(response, reverse('user_list'))
+
         self.user.refresh_from_db()
-        self.assertEqual(self.user.username, 'testuser')
+    
+        self.assertEqual(self.user.first_name, 'Updated')
+        self.assertEqual(self.user.last_name, 'User')
+#        print("\nТест: Данные пользователя успешно обновлены")
 
     def test_unauthenticated_user_cannot_update(self):
         url = reverse('user_update', kwargs={'pk': self.user.pk})
@@ -63,8 +78,8 @@ class UserCRUDTests(TestCase):
         self.assertRedirects(response, expected_redirect)
     
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), "Вы не авторизованы! "
-        "Пожалуйста, выполните вход.")
+        self.assertEqual(str(messages[0]), 
+                        "Вы не авторизованы! Пожалуйста, выполните вход.")
 
 
 class UserDeleteViewTests(TestCase):
