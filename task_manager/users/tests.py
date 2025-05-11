@@ -14,6 +14,14 @@ User = get_user_model()
 class UserCRUDTests(TestCase):
     fixtures = ['users.json']
 
+#    def test_load_users(self):
+#        print("Путь к фикстурам:", settings.FIXTURE_DIRS)
+#        users = User.objects.all()
+#        print("Найдено пользователей:", users.count())
+#        for u in users:
+#            print(u.username)
+#        assert len(users) == 3
+
     def setUp(self):
         self.user = User.objects.get(username='testuser')
         self.client = Client()
