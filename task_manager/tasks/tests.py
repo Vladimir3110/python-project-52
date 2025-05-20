@@ -10,7 +10,8 @@ from task_manager.tasks.models import Task
 
 
 class TaskCRUDTest(TestCase):
-    fixtures = ['users.json', 'statuses.json', 'labels.json', 'tasks.json']
+    fixtures = ['test_users.json', 'test_statuses.json', 
+                'test_labels.json', 'test_tasks.json']
 
     @classmethod
     def setUpTestData(cls):

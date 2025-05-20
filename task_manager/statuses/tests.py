@@ -8,8 +8,8 @@ from .models import Status
 
 class StatusCRUDTests(TestCase):
     fixtures = [
-        'users.json',
-        'statuses.json'
+        'test_users.json',
+        'test_statuses.json'
     ]
 
     def setUp(self):

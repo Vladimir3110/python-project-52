@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 class UserCRUDTests(TestCase):
-    fixtures = ['users.json']
+    fixtures = ['test_users.json']
 
 #    def test_load_users(self):
 #        print("Путь к фикстурам:", settings.FIXTURE_DIRS)
