@@ -67,7 +67,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'task_manager.urls'
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'auth.User'
 
 TEMPLATES = [
     {
