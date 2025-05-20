@@ -31,7 +31,7 @@ class UserRegistrationForm(forms.ModelForm):
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
         if password != password_confirm:
-            raise forms.ValidationError("The passwords do not match")
+            raise forms.ValidationError_("The passwords do not match")
         return cleaned_data
     
     def save(self, commit=True):
