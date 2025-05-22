@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
@@ -9,7 +10,9 @@ from task_manager.labels.models import Label
 
 from .filters import TaskFilter
 from .forms import TaskForm
-from .models import Task, User
+from .models import Task
+
+User = get_user_model()
 
 
 class TaskListView(FilterView):

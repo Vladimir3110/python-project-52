@@ -1,7 +1,5 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-
-# from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -12,15 +10,7 @@ User = get_user_model()
 
 
 class UserCRUDTests(TestCase):
-    fixtures = ['test_users.json']
-
-#    def test_load_users(self):
-#        print("Путь к фикстурам:", settings.FIXTURE_DIRS)
-#        users = User.objects.all()
-#        print("Найдено пользователей:", users.count())
-#        for u in users:
-#            print(u.username)
-#        assert len(users) == 3
+    fixtures = ['users.json']
 
     def setUp(self):
         self.client = Client()
@@ -36,8 +26,8 @@ class UserCRUDTests(TestCase):
         url = reverse('user_create')
         data = {
             'username': 'newuser',
-            'password': 'newpassword123',
-            'password_confirm': 'newpassword123',
+            'password1': 'newpassword123',
+            'password2': 'newpassword123',
             'first_name': 'New',
             'last_name': 'User'
         }
@@ -66,8 +56,6 @@ class UserCRUDTests(TestCase):
                 'username': 'testuser',
                 'first_name': 'Updated',
                 'last_name': 'User',
-                'password1': 'new_pass123',
-                'password2': 'new_pass123'
             },
             follow=True
         )

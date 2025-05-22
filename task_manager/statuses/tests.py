@@ -1,4 +1,3 @@
-# from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -8,8 +7,8 @@ from .models import Status
 
 class StatusCRUDTests(TestCase):
     fixtures = [
-        'test_users.json',
-        'test_statuses.json'
+        'users.json',
+        'statuses.json'
     ]
 
     def setUp(self):

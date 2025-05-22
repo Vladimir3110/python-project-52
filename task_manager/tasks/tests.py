@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
@@ -8,10 +8,11 @@ from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 
+User = get_user_model()
+
 
 class TaskCRUDTest(TestCase):
-    fixtures = ['test_users.json', 'test_statuses.json', 
-                'test_labels.json', 'test_tasks.json']
+    fixtures = ['users.json', 'statuses.json', 'labels.json', 'tasks.json']
 
     @classmethod
     def setUpTestData(cls):

@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
@@ -13,8 +12,8 @@ from task_manager.mixins import (
     OwnerCheckMixin,
     ProtectedDeleteMixin,
 )
-
-from .forms import UserRegistrationForm, UserUpdateForm
+from task_manager.users.forms import CustomUserChangeForm, CustomUsersCreateForm
+from task_manager.users.models import User
 
 
 # Список пользователей
@@ -26,7 +25,7 @@ class UserListView(ListView):
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = User
-    form_class = UserRegistrationForm
+    form_class = CustomUsersCreateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('login')
     success_message = _("User successfully registered")
@@ -35,7 +34,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
 # Редактирование пользователя
 class UserUpdateView(AuthRequiredMixin, OwnerCheckMixin, UpdateView):
     model = User
-    form_class = UserUpdateForm
+    form_class = CustomUserChangeForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
 
