@@ -345,7 +345,7 @@ msgstr "Вы уверены, что хотите удалить %(username)s?"
 
 #: users/templates/users/user_form.html:11
 msgid "Register"
-msgstr "Зарегистрироваться"
+msgstr "Зарегистрировать"
 
 #: users/templates/users/user_list.html:12
 msgid "Full name"
