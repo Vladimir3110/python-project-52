@@ -56,6 +56,8 @@ class UserCRUDTests(TestCase):
                 'username': 'testuser',
                 'first_name': 'Updated',
                 'last_name': 'User',
+                'password1': 'testpass123',
+                'password2': 'testpass123',
             },
             follow=True
         )
