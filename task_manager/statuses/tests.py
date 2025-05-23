@@ -24,11 +24,25 @@ class StatusCRUDTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.status.name)
 
+#    def test_status_create_view(self):
+#        self.client.login(username='testuser', password='testpass123')
+#        response = self.client.post(reverse('status_create'), {
+#            'name': 'New Status'})
+#        self.assertEqual(response.status_code, 302)
+#        self.assertTrue(Status.objects.filter(name='New Status').exists())
+
     def test_status_create_view(self):
         self.client.login(username='testuser', password='testpass123')
-        response = self.client.post(reverse('status_create'), {
-            'name': 'New Status'})
-        self.assertEqual(response.status_code, 302)
+    
+        response = self.client.get(reverse('status_create'))
+        self.assertEqual(response.status_code, 200)
+    
+        response = self.client.post(
+            reverse('status_create'),
+            {'name': 'New Status'},
+            follow=True
+        )
+        self.assertRedirects(response, reverse('status_list'))
         self.assertTrue(Status.objects.filter(name='New Status').exists())
 
     def test_status_delete_protected(self):
