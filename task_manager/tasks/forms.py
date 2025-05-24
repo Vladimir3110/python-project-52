@@ -11,6 +11,7 @@ class TaskForm(forms.ModelForm):
     status = forms.ChoiceField(
         choices=Task.Status.choices,
         label=_("Status"),
+        widget=forms.Select(attrs={"id": "id_status"}),
         required=True
     )
     labels = forms.ModelMultipleChoiceField(
