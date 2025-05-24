@@ -119,7 +119,7 @@ msgstr "У вас нет прав для изменения другого по�
 
 #: statuses/forms.py:12
 msgid "name"
-msgstr "имя"
+msgstr "Имя"
 
 #: statuses/templates/statuses/status_confirm_delete.html:6
 msgid "Delete status"
