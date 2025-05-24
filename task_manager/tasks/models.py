@@ -10,9 +10,9 @@ User = get_user_model()
 
 class Task(models.Model):
     class Status(models.TextChoices):
-        NEW = 'new', _('New')
-        IN_PROGRESS = 'in_progress', _('In Progress')
-        DONE = 'done', _('Done')
+        NEW = 'new', 'Новый'  # _('New')
+        IN_PROGRESS = 'In Progress', 'В работе'  # _('In Progress')
+        DONE = 'Done', 'Завершено'  # _('Done')
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'))
