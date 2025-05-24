@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 13:07+0900\n"
+"POT-Creation-Date: 2025-05-24 22:07+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: task_manager/labels/forms.py:12 task_manager/labels/models.py:6
 #: task_manager/labels/templates/labels/label_list.html:14
 #: task_manager/statuses/templates/statuses/status_list.html:15
-#: task_manager/tasks/forms.py:27 task_manager/tasks/models.py:17
+#: task_manager/tasks/forms.py:27 task_manager/tasks/models.py:18
 #: task_manager/tasks/templates/tasks/task_list.html:84
 msgid "Name"
 msgstr "Имя"
@@ -167,7 +167,7 @@ msgid "Cannot delete status in use"
 msgstr "Невозможно удалить статус который используется"
 
 #: task_manager/tasks/filters.py:15 task_manager/tasks/forms.py:13
-#: task_manager/tasks/forms.py:29 task_manager/tasks/models.py:37
+#: task_manager/tasks/forms.py:29 task_manager/tasks/models.py:38
 #: task_manager/tasks/templates/tasks/task_detail.html:11
 #: task_manager/tasks/templates/tasks/task_list.html:19
 #: task_manager/tasks/templates/tasks/task_list.html:85
@@ -190,7 +190,7 @@ msgstr "Метки"
 msgid "Only my tasks"
 msgstr "Только мои задачи"
 
-#: task_manager/tasks/forms.py:28 task_manager/tasks/models.py:18
+#: task_manager/tasks/forms.py:28 task_manager/tasks/models.py:19
 msgid "Description"
 msgstr "Описание"
 
@@ -199,29 +199,17 @@ msgstr "Описание"
 msgid "Assignee"
 msgstr "Исполнитель"
 
-#: task_manager/tasks/models.py:13
-msgid "New"
-msgstr "Новый"
-
-#: task_manager/tasks/models.py:14
-msgid "In Progress"
-msgstr "В работе"
-
-#: task_manager/tasks/models.py:15
-msgid "Done"
-msgstr "Завершен"
-
-#: task_manager/tasks/models.py:23
+#: task_manager/tasks/models.py:24
 #: task_manager/tasks/templates/tasks/task_detail.html:13
 #: task_manager/tasks/templates/tasks/task_list.html:86
 msgid "Author"
 msgstr "Автор"
 
-#: task_manager/tasks/models.py:31
+#: task_manager/tasks/models.py:32
 msgid "Assigned to"
 msgstr ""
 
-#: task_manager/tasks/models.py:40
+#: task_manager/tasks/models.py:41
 msgid "Created at"
 msgstr ""
 
@@ -406,6 +394,15 @@ msgstr "Вы залогинены"
 #: task_manager/users/views.py:88
 msgid "You are logged out"
 msgstr "Вы разлогинены"
+
+#~ msgid "New"
+#~ msgstr "Новый"
+
+#~ msgid "In Progress"
+#~ msgstr "В работе"
+
+#~ msgid "Done"
+#~ msgstr "Завершен"
 
 #~ msgid "name"
 #~ msgstr "Имя"
