@@ -172,7 +172,7 @@ msgstr "Невозможно удалить статус который испо
 #: task_manager/tasks/templates/tasks/task_list.html:19
 #: task_manager/tasks/templates/tasks/task_list.html:85
 msgid "Status"
-msgstr "Статусы"
+msgstr "Статус"
 
 #: task_manager/tasks/filters.py:20
 #: task_manager/tasks/templates/tasks/task_list.html:31
@@ -294,7 +294,7 @@ msgstr "Менеджер задач Hexlet"
 
 #: task_manager/templates/layout.html:15
 msgid "Task Manager"
-msgstr "Медеджер задач"
+msgstr "Менеджер задач"
 
 #: task_manager/templates/layout.html:22
 #: task_manager/users/templates/users/user_list.html:6
