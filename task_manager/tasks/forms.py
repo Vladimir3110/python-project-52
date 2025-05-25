@@ -8,14 +8,14 @@ User = get_user_model()
 
 
 class TaskForm(forms.ModelForm):
-    
-    labels = forms.ModelMultipleChoiceField(
-        queryset=Label.objects.all(),
-        widget=forms.SelectMultiple(attrs={'class': 'form-select'}),
-        required=True,
-        label=_("Labels")
+    status = forms.ChoiceField(
+        choices=Task.Status.choices, 
+        label=_("Status"),
+        widget=forms.Select(attrs={"id": "id_status"}),
+        required=False,
+        initial=''
     )
-    
+
     class Meta:
         model = Task
         fields = ['name', 'description', 'status', 'assigned_to', 'labels']

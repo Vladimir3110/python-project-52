@@ -12,6 +12,7 @@
 
         <form method="post">
             {% csrf_token %}
+
         <button type="submit" class="btn btn-primary">
             {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
         </button>
