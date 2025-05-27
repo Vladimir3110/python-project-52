@@ -47,3 +47,5 @@ class TaskForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['assigned_to'].queryset = User.objects.all()
         self.fields['labels'].queryset = Label.objects.all()
+        self.fields['status'].queryset = Task.Status.objects.all()
+        self.fields['status'].empty_label = '---------'
