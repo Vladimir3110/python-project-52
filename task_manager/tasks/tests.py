@@ -29,7 +29,8 @@ class TaskCRUDTest(TestCase):
         form_data = {
             'name': 'Test task 1',
             'description': 'Sample description 1',
-            'status': Task.Status.NEW,
+#            'status': Task.Status.NEW,
+            'status': 'new',
             'labels': [self.label.id],
             'assigned_to': self.user.id,
         }

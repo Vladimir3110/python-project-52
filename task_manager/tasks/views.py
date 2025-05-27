@@ -55,10 +55,17 @@ class TaskCreateView(LoginRequiredMixin, View):
             messages.success(request, _('Task created successfully!'))
             return redirect('tasks:list')
 #        print("Form errors:", form.errors)
+        print("Form data:", request.POST)  # Вывод данных
+        print("Form errors:", form.errors)
         return render(request, 'tasks/task_form.html', {'form': form})
 
 
 class TaskUpdateView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        form = TaskForm(instance=task)
+        return render(request, 'tasks/task_form.html', {'form': form})
+
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         form = TaskForm(request.POST, instance=task)
