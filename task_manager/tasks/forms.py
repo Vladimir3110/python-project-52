@@ -37,6 +37,11 @@ class TaskForm(forms.ModelForm):
             'assigned_to': _("Assignee"),
             'labels': _("Labels")
         }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'assigned_to': forms.Select(attrs={'class': 'form-select'}),
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
