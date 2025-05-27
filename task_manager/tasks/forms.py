@@ -17,7 +17,7 @@ class TaskForm(forms.ModelForm):
             "name": "status"
             }),
         required=False,
-    #    initial=''
+        initial=''
 #        initial=Task.Status.NEW
     )
     labels = forms.ModelMultipleChoiceField(
