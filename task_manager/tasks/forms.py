@@ -11,7 +11,7 @@ class TaskForm(forms.ModelForm):
     status = forms.ChoiceField(
         choices=Task.Status.choices, 
         label=_("Status"),
-        widget=forms.Select(attrs={"id": "id_status"}),
+        widget=forms.Select(attrs={"id": "id_status", "class": "form-select"}),
         required=False,
     #    initial=''
 #        initial=Task.Status.NEW
