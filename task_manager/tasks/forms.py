@@ -17,7 +17,7 @@ class TaskForm(forms.ModelForm):
             "name": "status"
             }),
         required=False,
-        initial=''
+#        initial=''
 #        initial=Task.Status.NEW
     )
     labels = forms.ModelMultipleChoiceField(
@@ -38,7 +38,10 @@ class TaskForm(forms.ModelForm):
             'labels': _("Labels")
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'id': 'id_name', 
+                'placeholder': _('Name')}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'assigned_to': forms.Select(attrs={'class': 'form-select'}),
         }
@@ -47,5 +50,5 @@ class TaskForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['assigned_to'].queryset = User.objects.all()
         self.fields['labels'].queryset = Label.objects.all()
-#        self.fields['status'].queryset = Task.Status.objects.all()
-#        self.fields['status'].empty_label = '---------'
+        self.fields['status'].choices = [('', '---------')] + list(
+            Task.Status.choices)
