@@ -401,4 +401,4 @@ msgstr "Вы залогинены"
 
 #: task_manager/users/views.py:88
 msgid "You are logged out"
-msgstr "Вы разлогенены"
+msgstr "Вы разлогинены"
