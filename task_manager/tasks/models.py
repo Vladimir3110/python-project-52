@@ -10,7 +10,6 @@ User = get_user_model()
 
 class Task(models.Model):
     class Status(models.TextChoices):
-        EMPTY = '', '---------'
         NEW = 'new', _('New')
         IN_PROGRESS = 'In Progress', _('In Progress')
         DONE = 'Done', _('Done')

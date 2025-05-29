@@ -15,12 +15,13 @@
             <div class="card-body bg-light">
                 <div class="d-flex flex-column gap-3">
                     <!-- Статус -->
+
                     <div>
-                        <label class="form-label" for="id_status">{% trans "Status" %}</label>
+                        <label for="id_status" class="form-label">{% trans "Status" %}</label>
                         <select name="status" class="form-select" id="id_status">
                             {% for value, name in filter.form.status.field.choices %}
                                 <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
-                                    {{ name }}
+                                    {{ name|default:"---------" }}
                                 </option>
                             {% endfor %}
                         </select>
