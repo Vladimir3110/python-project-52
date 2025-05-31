@@ -195,7 +195,7 @@ msgstr "Описание"
 #: task_manager/tasks/forms.py:37
 #: task_manager/tasks/templates/tasks/task_detail.html:15
 msgid "Assignee"
-msgstr ""
+msgstr "Исполнитель"
 
 #: task_manager/tasks/models.py:13
 msgid "New"
