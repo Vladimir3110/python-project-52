@@ -217,7 +217,7 @@ msgstr "Автор"
 
 #: task_manager/tasks/models.py:31
 msgid "Assigned to"
-msgstr ""
+msgstr "Назначено"
 
 #: task_manager/tasks/models.py:40
 msgid "Created at"
