@@ -1,6 +1,15 @@
 install:
 	uv sync
 
+collectstatic:
+	uv run python3 manage.py collectstatic --no-input
+
+makemessages:
+	uv run django-admin makemessages --ignore="static" --ignore=".env"  -l ru
+
+compilemessages:
+	uv run django-admin compilemessages
+
 build:
 	./build.sh
 
