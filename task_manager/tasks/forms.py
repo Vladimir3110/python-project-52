@@ -30,6 +30,9 @@ class TaskForm(forms.ModelForm):
     class Meta:    
         model = Task
         fields = ['name', 'description', 'status', 'assigned_to', 'labels']
+        widgets = {
+            'status': forms.Select(attrs={'id': 'id_status'}),
+        }
         labels = {
             'name': _("Name"),
             'description': _("Description"),

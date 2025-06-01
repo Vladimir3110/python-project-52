@@ -234,7 +234,7 @@ msgstr "Вы уверены, что хотите удалить задачу \"%
 
 #: task_manager/tasks/templates/tasks/task_detail.html:16
 msgid "Not assigned"
-msgstr ""
+msgstr "Не назначен"
 
 #: task_manager/tasks/templates/tasks/task_form.html:8
 msgid "Update task"
