@@ -11,19 +11,7 @@
 
         <form method="post">
             {% csrf_token %}
-
-            <!-- Добавлен id и name для статуса -->
-        
-        <!-- Остальные поля формы -->
-        {% bootstrap_field form.name %}
-        {% bootstrap_field form.description %}
-        <div class="mb-3">
-            <label for="id_status" class="form-label">{% trans "Status" %}</label>
-            {{ form.status }}
-        </div>
-        {% bootstrap_field form.assigned_to %}
-        {% bootstrap_field form.labels %}
-
+            {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary">
             {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
         </button>
