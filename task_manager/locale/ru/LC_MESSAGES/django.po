@@ -121,7 +121,7 @@ msgid "Cannot delete user because it is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
 #: task_manager/statuses/forms.py:12
-msgid "Имя"
+msgid "Name"
 msgstr "Имя"
 
 #: task_manager/statuses/templates/statuses/status_confirm_delete.html:6

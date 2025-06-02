@@ -73,5 +73,6 @@ class TaskForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['assigned_to'].queryset = User.objects.all()
         self.fields['labels'].queryset = Label.objects.all()
+        self.fields['status'].choices = Task.Status.choices
         self.fields['status'].choices = [('', '---------')] + list(
             Task.Status.choices)
