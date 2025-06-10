@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views import View
+from django.views.generic import CreateView
 from django_filters.views import FilterView
 
 from task_manager.labels.models import Label
@@ -54,10 +55,15 @@ class TaskListView(FilterView):
         return kwargs
 
 
-class TaskCreateView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = TaskForm()
-        return render(request, 'tasks/task_form.html', {'form': form})
+class TaskCreateView(CreateView):
+    model = Task
+    form = TaskForm
+    template_name = ('tasks/task_form.html', {'form': form})
+
+# class TaskCreateView(LoginRequiredMixin, View):
+#    def get(self, request):
+#        form = TaskForm()
+#        return render(request, 'tasks/task_form.html', {'form': form})
 
     def post(self, request):
         form = TaskForm(request.POST)
