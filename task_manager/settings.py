@@ -156,7 +156,7 @@ LANGUAGES = [
 #STATICFILES_DIRS = [
 #    BASE_DIR / 'static',
 #]
-STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
 

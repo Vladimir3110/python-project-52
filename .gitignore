@@ -18,5 +18,6 @@ htmlcov/
 upload
 .python_version
 .env
+staticfiles/
 .ruff_cache
 db.sqlite3
