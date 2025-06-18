@@ -23,31 +23,31 @@ class TaskListView(FilterView):
     template_name = 'tasks/task_list.html'
     context_object_name = 'tasks'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            # Исправлено имя на 'executors'
-            'executors': User.objects.all(),
-            'labels': Label.objects.all(),
-            'selected_status': self.request.GET.get('status', ''),
-            # Исправлено имя на 'executor' (было 'assigned_to')
-            'selected_executor': self.request.GET.get('executor', ''),
-            'selected_label': self.request.GET.get('label', ''),
-            'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
-        })
-        return context
-
 #    def get_context_data(self, **kwargs):
 #        context = super().get_context_data(**kwargs)
 #        context.update({
+#            # Исправлено имя на 'executors'
 #            'executors': User.objects.all(),
 #            'labels': Label.objects.all(),
 #            'selected_status': self.request.GET.get('status', ''),
-#            'selected_assigned_to': self.request.GET.get('assigned_to', ''),
+#            # Исправлено имя на 'executor' (было 'assigned_to')
+#            'selected_executor': self.request.GET.get('executor', ''),
 #            'selected_label': self.request.GET.get('label', ''),
 #            'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
 #        })
 #        return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'executors': User.objects.all(),
+            'labels': Label.objects.all(),
+            'selected_status': self.request.GET.get('status', ''),
+            'selected_assigned_to': self.request.GET.get('assigned_to', ''),
+            'selected_label': self.request.GET.get('label', ''),
+            'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
+        })
+        return context
     
     def get_filterset_kwargs(self, filterset_class):
         kwargs = super().get_filterset_kwargs(filterset_class)
