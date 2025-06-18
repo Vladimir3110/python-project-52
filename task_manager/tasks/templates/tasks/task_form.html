@@ -12,11 +12,6 @@
         <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <select name="status" id="id_status" class="form-select">
-                {% for status in form.status.field.queryset %}
-                  <option value="{{ status.id }}">{{ status.name }}</option>
-                {% endfor %}
-              </select>
             
         <button type="submit" class="btn btn-primary">
             {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
