@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+from task_manager.statuses.models import Status
+
 from .models import Label, Task
 
 User = get_user_model()
@@ -30,9 +32,12 @@ class TaskForm(forms.ModelForm):
     class Meta:    
         model = Task
         fields = ['name', 'description', 'status', 'assigned_to', 'labels']
-#        widgets = {
-#            'status': forms.Select(attrs={'id': 'id_status'}),
-#        }
+
+        status = forms.ModelChoiceField(
+        queryset=Status.objects.all(),
+        label=_("Status"),
+        empty_label=None
+    )
         labels = {
             'name': _("Name"),
             'description': _("Description"),
@@ -42,12 +47,12 @@ class TaskForm(forms.ModelForm):
         }
 
         widgets = {
-            'status': forms.Select(
-                attrs={
-                    'class': 'form-select',
-                    'required': True,
-                }
-            ),
+#            'status': forms.Select(
+#                attrs={
+#                    'class': 'form-select',
+#                    'required': True,
+#                }
+#            ),
             'executor': forms.Select(
                 attrs={
                     'class': 'form-select',
@@ -59,15 +64,6 @@ class TaskForm(forms.ModelForm):
                 }
             ),
         }
-
-#        widgets = {
-#            'name': forms.TextInput(attrs={
-#                'class': 'form-control', 
-#                'id': 'id_name', 
-#                'placeholder': _('Name')}),
-#            'description': forms.Textarea(attrs={'class': 'form-control'}),
-#            'assigned_to': forms.Select(attrs={'class': 'form-select'}),
-#        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -77,4 +73,5 @@ class TaskForm(forms.ModelForm):
         self.fields['status'].label = _("Status")
         self.fields['status'].choices = [('', '---------')] + list(
             Task.Status.choices)
+#        self.fields['executor'].queryset = User.objects.all()
 #        self.fields['executor'].queryset = User.objects.all()

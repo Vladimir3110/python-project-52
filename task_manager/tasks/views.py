@@ -9,13 +9,11 @@ from django.views import View
 from django_filters.views import FilterView
 
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 
 from .filters import TaskFilter
 from .forms import TaskForm
 from .models import Task
-
-# from task_manager.statuses.models import Status
-
 
 User = get_user_model()
 
@@ -67,6 +65,8 @@ class TaskListView(FilterView):
 class TaskCreateView(LoginRequiredMixin, View):
     def get(self, request):
         form = TaskForm()
+        if not Status.objects.exists():
+            Status.objects.create(name="Default Status")
 #        print("Available statuses:", Status.objects.all())
         return render(request, 'tasks/task_form.html', {'form': form})
 
@@ -80,8 +80,8 @@ class TaskCreateView(LoginRequiredMixin, View):
             messages.success(request, _('Task created successfully!'))
             return redirect('tasks:list')
 #        print("Form errors:", form.errors)
-        print("Form data:", request.POST)  # Вывод данных
-        print("Form errors:", form.errors)
+#        print("Form data:", request.POST)  # Вывод данных
+#        print("Form errors:", form.errors)
         return render(request, 'tasks/task_form.html', {'form': form})
 
 
