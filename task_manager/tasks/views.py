@@ -14,6 +14,9 @@ from .filters import TaskFilter
 from .forms import TaskForm
 from .models import Task
 
+# from task_manager.statuses.models import Status
+
+
 User = get_user_model()
 
 
@@ -64,6 +67,7 @@ class TaskListView(FilterView):
 class TaskCreateView(LoginRequiredMixin, View):
     def get(self, request):
         form = TaskForm()
+#        print("Available statuses:", Status.objects.all())
         return render(request, 'tasks/task_form.html', {'form': form})
 
     def post(self, request):
