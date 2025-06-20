@@ -22,6 +22,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
     path("", views.index, name="index"),
     path("", include('task_manager.users.urls')),
     path('users/', include('task_manager.users.urls')),

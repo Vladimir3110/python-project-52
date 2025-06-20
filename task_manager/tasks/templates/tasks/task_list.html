@@ -18,6 +18,7 @@
 
                     <div>
                         <label class="form-label" for="id_status">{% trans "Status" %}</label>
+                        {{ filter.form.status }}
                         <select name="status" class="form-select" id="id_status" aria-label="Статус">
                             {% for value, name in filter.form.status.field.choices %}
                                 <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
