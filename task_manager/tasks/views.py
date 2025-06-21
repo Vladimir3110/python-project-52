@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-
 # from django.views.generic import CreateView
 from django_filters.views import FilterView
 
@@ -124,4 +123,5 @@ class TaskDeleteView(LoginRequiredMixin, View):
 class TaskDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
+        return render(request, 'tasks/task_detail.html', {'task': task})
         return render(request, 'tasks/task_detail.html', {'task': task})
