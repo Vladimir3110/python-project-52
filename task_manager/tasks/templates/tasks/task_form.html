@@ -11,26 +11,7 @@
 
         <form method="post">
             {% csrf_token %}
-            
-            {# Остальные поля #}
-            {% bootstrap_field form.name %}
-            {% bootstrap_field form.description %}
-            <div class="mb-3" data-testid="status-field">
-                <label for="id_status" class="form-label">{% trans "Status" %}</label>
-                <select 
-                    name="status" 
-                    id="id_status" 
-                    class="form-select" 
-                    data-testid="status-select"
-                    required
-                >
-                    {% for value, text in form.status.field.choices %}
-                        <option value="{{ value }}">{{ text }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            {% bootstrap_field form.assigned_to %}
-            {% bootstrap_field form.labels %}
+            {% bootstrap_form form %}
             
         <button type="submit" class="btn btn-primary">
             {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}

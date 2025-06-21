@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-21 20:54+0900\n"
+"POT-Creation-Date: 2025-06-21 22:43+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,14 +54,14 @@ msgstr "Создать метку"
 
 #: task_manager/labels/templates/labels/label_form.html:16
 #: task_manager/statuses/templates/statuses/status_form.html:11
-#: task_manager/tasks/templates/tasks/task_form.html:17
+#: task_manager/tasks/templates/tasks/task_form.html:36
 #: task_manager/users/templates/users/user_update.html:10
 msgid "Update"
 msgstr "Изменить"
 
 #: task_manager/labels/templates/labels/label_form.html:16
 #: task_manager/statuses/templates/statuses/status_form.html:11
-#: task_manager/tasks/templates/tasks/task_form.html:17
+#: task_manager/tasks/templates/tasks/task_form.html:36
 msgid "Create"
 msgstr "Создать"
 
@@ -164,6 +164,7 @@ msgstr "Невозможно удалить статус, потому что о
 #: task_manager/tasks/forms.py:38 task_manager/tasks/forms.py:44
 #: task_manager/tasks/forms.py:73 task_manager/tasks/models.py:37
 #: task_manager/tasks/templates/tasks/task_detail.html:11
+#: task_manager/tasks/templates/tasks/task_form.html:19
 #: task_manager/tasks/templates/tasks/task_list.html:20
 #: task_manager/tasks/templates/tasks/task_list.html:88
 msgid "Status"
