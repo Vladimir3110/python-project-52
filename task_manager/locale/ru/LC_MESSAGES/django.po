@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-18 20:33+0900\n"
+"POT-Creation-Date: 2025-06-21 20:54+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: task_manager/labels/templates/labels/label_list.html:14
 #: task_manager/statuses/forms.py:12
 #: task_manager/statuses/templates/statuses/status_list.html:15
-#: task_manager/tasks/forms.py:37 task_manager/tasks/models.py:17
+#: task_manager/tasks/forms.py:42 task_manager/tasks/models.py:17
 #: task_manager/tasks/templates/tasks/task_list.html:87
 msgid "Name"
 msgstr "Имя"
@@ -66,7 +66,7 @@ msgid "Create"
 msgstr "Создать"
 
 #: task_manager/labels/templates/labels/label_list.html:7
-#: task_manager/tasks/forms.py:27 task_manager/tasks/forms.py:41
+#: task_manager/tasks/forms.py:29 task_manager/tasks/forms.py:46
 #: task_manager/templates/layout.html:37
 msgid "Labels"
 msgstr "Метки"
@@ -160,12 +160,11 @@ msgstr "Статус успешно удален"
 msgid "Cannot delete status in use"
 msgstr "Невозможно удалить статус, потому что он используется"
 
-#: task_manager/tasks/filters.py:15 task_manager/tasks/forms.py:13
-#: task_manager/tasks/forms.py:39 task_manager/tasks/forms.py:77
-#: task_manager/tasks/models.py:37
+#: task_manager/tasks/filters.py:15 task_manager/tasks/forms.py:15
+#: task_manager/tasks/forms.py:38 task_manager/tasks/forms.py:44
+#: task_manager/tasks/forms.py:73 task_manager/tasks/models.py:37
 #: task_manager/tasks/templates/tasks/task_detail.html:11
 #: task_manager/tasks/templates/tasks/task_list.html:20
-#: task_manager/tasks/templates/tasks/task_list.html:21
 #: task_manager/tasks/templates/tasks/task_list.html:88
 msgid "Status"
 msgstr "Статус"
@@ -186,11 +185,11 @@ msgstr "Метка"
 msgid "Only my tasks"
 msgstr "Только мои задачи"
 
-#: task_manager/tasks/forms.py:38 task_manager/tasks/models.py:18
+#: task_manager/tasks/forms.py:43 task_manager/tasks/models.py:18
 msgid "Description"
 msgstr "Описание"
 
-#: task_manager/tasks/forms.py:40
+#: task_manager/tasks/forms.py:45
 #: task_manager/tasks/templates/tasks/task_detail.html:15
 msgid "Assignee"
 msgstr "Исполнитель"
@@ -201,7 +200,7 @@ msgstr "Новая"
 
 #: task_manager/tasks/models.py:14
 msgid "In Progress"
-msgstr "В процессе"
+msgstr "В работе"
 
 #: task_manager/tasks/models.py:15
 msgid "Done"
