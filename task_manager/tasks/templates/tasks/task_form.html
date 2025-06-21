@@ -16,10 +16,7 @@
         
             {% bootstrap_field form.description %}
 
-            <div class="mb-3">
-                <label for="id_status" class="form-label">{% trans "Status" %}</label>
-                {{ form.status }}
-            </div>
+            {% bootstrap_field form.status %}
         
             {% bootstrap_field form.assigned_to %}
         
