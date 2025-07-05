@@ -4,17 +4,24 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 
 User = get_user_model()
 
 
 class TaskFilter(django_filters.FilterSet):
-    status = django_filters.ChoiceFilter(
-        choices=Task.Status.choices,
+    status = django_filters.ModelChoiceFilter(
+        queryset=Status.objects.all(),
         label=_("Status"),
-        field_name='status'
+        field_name='status_id'
+#        field_name='status'
     )
+#    status = django_filters.ChoiceFilter(
+#        choices=Task.Status.choices,
+#        label=_("Status"),
+#        field_name='status'
+#    )
     executor = django_filters.ModelChoiceFilter(
         queryset=User.objects.all(),
         label=_("Executor"),

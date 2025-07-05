@@ -5,20 +5,19 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
-from task_manager.tasks.models import Task
+from task_manager.tasks.models import Status, Task
 
 User = get_user_model()
 
 
 class LabelTests(TestCase):
     def setUp(self):
-        # Создаем тестового пользователя
         self.user = User.objects.create_user(
             username='testuser',
             password='testpass123'
         )
         
-        # Создаем тестовую метку
+        self.status = Status.objects.create(name='new')
         self.label = Label.objects.create(name='bug')
         
         # Создаем тестовую задачу и связываем с меткой
@@ -26,7 +25,7 @@ class LabelTests(TestCase):
             name='Test Task',
             description='Test Description',
             author=self.user,
-            status='new'
+            status=self.status
         )
         self.task.labels.add(self.label)
 

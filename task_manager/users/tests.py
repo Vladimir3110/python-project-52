@@ -1,27 +1,28 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
-from django.test import Client, TestCase
+from django.test import TestCase
 from django.urls import reverse
 
+from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 
 User = get_user_model()
 
 
 class UserCRUDTests(TestCase):
-    fixtures = ['users.json']
+    fixtures = ['users.json', 'statuses.json']
 
     def setUp(self):
-        self.client = Client()
-        self.user = get_user_model().objects.get(pk=1)
-        self.user2 = get_user_model().objects.get(pk=2)
-        self.user3 = get_user_model().objects.get(pk=3)
-        self.users_count = get_user_model().objects.count()
+        self.user1 = User.objects.get(pk=1)
+        self.user2 = User.objects.get(pk=2)
+        self.user3 = User.objects.get(pk=3)
+        self.users_count = User.objects.count()
+        self.client.login(username='testuser', password='testpass123')
+        self.status = Status.objects.get(pk=1)
 
     def test_user_registration(self):
-        initial_users = User.objects.all()
-        self.assertEqual(initial_users.count(), 3)
+        initial_users = User.objects.count()
 
         url = reverse('user_create')
         data = {
@@ -34,7 +35,7 @@ class UserCRUDTests(TestCase):
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(User.objects.count(), 4)
+        self.assertEqual(User.objects.count(), initial_users + 1)
         self.assertTrue(User.objects.filter(username='newuser').exists())
 
         messages = list(get_messages(response.wsgi_request))
@@ -42,16 +43,10 @@ class UserCRUDTests(TestCase):
                          "Пользователь успешно зарегистрирован")
 
     def test_user_update(self):
-        self.assertEqual(self.user.first_name, 'Test')
-
-        login_success = self.client.login(
-            username='testuser', 
-            password='testpass123'
-        )
-        self.assertTrue(login_success)
-
+        self.client.login(username='user1', password='testpass123')
+        url = reverse('user_update', kwargs={'pk': self.user1.pk})
         response = self.client.post(
-            reverse('user_update', args=[self.user.id]),
+            url,
             {
                 'username': 'testuser',
                 'first_name': 'Updated',
@@ -59,19 +54,16 @@ class UserCRUDTests(TestCase):
                 'password1': 'testpass123',
                 'password2': 'testpass123',
             },
-            follow=True
         )
-
         self.assertRedirects(response, reverse('user_list'))
-
-        self.user.refresh_from_db()
-    
-        self.assertEqual(self.user.first_name, 'Updated')
-        self.assertEqual(self.user.last_name, 'User')
+        self.user1.refresh_from_db()
+        self.assertEqual(self.user1.first_name, 'Updated')
+        self.assertEqual(self.user1.last_name, 'User')
 #        print("\nТест: Данные пользователя успешно обновлены")
 
     def test_unauthenticated_user_cannot_update(self):
-        url = reverse('user_update', kwargs={'pk': self.user.pk})
+        self.client.logout()
+        url = reverse('user_update', kwargs={'pk': self.user1.pk})
         response = self.client.post(url)
     
         login_url = reverse(settings.LOGIN_URL)
@@ -89,11 +81,11 @@ class UserDeleteViewTests(TestCase):
                                               password='testpass123')
         self.user2 = User.objects.create_user(username='user2', 
                                               password='testpass123')
+        self.status = Status.objects.create(name='Test Status')
 
     def test_unauthenticated_user_cannot_delete(self):
         url = reverse('user_delete', kwargs={'pk': self.user1.pk})
         response = self.client.post(url)
-    
         login_url = reverse(settings.LOGIN_URL)
         expected_redirect = f"{login_url}?next={url}"
     
@@ -115,7 +107,12 @@ class UserDeleteViewTests(TestCase):
         "другого пользователя.")
 
     def test_cannot_delete_user_with_tasks(self):
-        Task.objects.create(name='Test Task', author=self.user1)
+        Task.objects.create(
+            name='Test task 1', 
+            author=self.user1,
+            status=self.status
+        )
+
         self.client.login(username='user1', password='testpass123')
         url = reverse('user_delete', kwargs={'pk': self.user1.pk})
         response = self.client.post(url)

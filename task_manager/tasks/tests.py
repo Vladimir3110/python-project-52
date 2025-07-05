@@ -18,6 +18,8 @@ class TaskCRUDTest(TestCase):
     def setUpTestData(cls):
         cls.user = User.objects.get(pk=1)
         cls.status = Status.objects.get(pk=1)
+        # Добавим второй статус для теста обновления
+        cls.status_in_progress = Status.objects.create(name='in progress')
         cls.label = Label.objects.get(pk=1)
         cls.task = Task.objects.get(pk=1)
 
@@ -29,8 +31,7 @@ class TaskCRUDTest(TestCase):
         form_data = {
             'name': 'Test task 1',
             'description': 'Sample description 1',
-#            'status': Task.Status.NEW,
-            'status': 'new',
+            'status': self.status.id,  # Исправлено: передаем ID статуса
             'labels': [self.label.id],
             'assigned_to': self.user.id,
         }
@@ -43,7 +44,7 @@ class TaskCRUDTest(TestCase):
         updated_data = {
             'name': 'Test task 2',
             'description': 'Sample description 2',
-            'status': Task.Status.IN_PROGRESS,
+            'status': self.status_in_progress.id,  # передаем ID статуса
             'labels': [self.label.id],
             'assigned_to': self.user.id
         }   

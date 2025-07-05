@@ -18,10 +18,12 @@
 
                     <div>
                         <label class="form-label" for="id_status">{% trans "Status" %}</label>
-                        <select name="status" class="form-select" id="id_status" aria-label="Статус">
-                            {% for value, name in filter.form.status.field.choices %}
-                                <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
-                                    {{ name|default:"---------" }}
+                        <select name="status" class="form-select" id="id_status">
+                            <option value="">---------</option>
+                            {% for status in statuses %}
+                                <option value="{{ status.id }}"
+                                    {% if selected_status == status.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ status.name }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -97,7 +99,7 @@
             <tr>
                 <td>{{ task.id }}</td>
                 <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
-                <td>{{ task.get_status_display }}</td>
+                <td>{{ task.status.name }}</td>
                 <td>{{ task.author.get_full_name|default:task.author.username }}</td>
             
             <td>

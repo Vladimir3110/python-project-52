@@ -5,10 +5,10 @@
     "fields": {
         "name": "Test task 1",
         "description": "Sample description 1",
+        "status": 1,
         "author": 1,
         "assigned_to": 2,
-        "status": "new",
-        "created_at": "2025-05-21T15:08:39.906Z",
+        "created_at": "2025-07-05T14:23:13.660Z",
         "labels": [
             1
         ]
@@ -20,10 +20,10 @@
     "fields": {
         "name": "Test task 2",
         "description": "Sample description 2",
+        "status": 1,
         "author": 2,
         "assigned_to": null,
-        "status": "new",
-        "created_at": "2025-05-21T15:09:00.069Z",
+        "created_at": "2025-07-05T14:23:39.744Z",
         "labels": []
     }
 }
