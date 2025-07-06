@@ -19,14 +19,14 @@ class Task(models.Model):
         related_name='tasks',
         verbose_name=_('Status')
     )
-    
+
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         related_name='authored_tasks',
         verbose_name=_('Author')
     )
-    
+
     assigned_to = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -35,7 +35,7 @@ class Task(models.Model):
         related_name='assigned_tasks',
         verbose_name=_('Assigned to')
     )
-    
+
     created_at = models.DateTimeField(auto_now_add=True, 
                                       verbose_name=_('Created at'))
     labels = models.ManyToManyField(Label, related_name='tasks', blank=True)

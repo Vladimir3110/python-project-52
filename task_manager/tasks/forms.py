@@ -21,6 +21,13 @@ class TaskForm(forms.ModelForm):
         required=True
     )
 
+    assigned_to = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        label=_('Assigned to'),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
     labels = forms.ModelMultipleChoiceField(
         queryset=Label.objects.all(),
         widget=forms.SelectMultiple(attrs={'class': 'form-select'}),
