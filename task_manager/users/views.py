@@ -16,7 +16,6 @@ from task_manager.users.forms import CustomUserChangeForm, CustomUsersCreateForm
 from task_manager.users.models import User
 
 
-# Список пользователей
 class UserListView(ListView):
     model = User
     template_name = 'users/user_list.html'
@@ -31,7 +30,6 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_message = _("User successfully registered")
 
 
-# Редактирование пользователя
 class UserUpdateView(AuthRequiredMixin, OwnerCheckMixin, UpdateView):
     model = User
     form_class = CustomUserChangeForm
@@ -46,7 +44,6 @@ class UserUpdateView(AuthRequiredMixin, OwnerCheckMixin, UpdateView):
         return response
 
 
-# Удаление пользователя
 class UserDeleteView(
     AuthRequiredMixin, OwnerCheckMixin, ProtectedDeleteMixin, DeleteView):
     model = User
