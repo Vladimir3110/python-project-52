@@ -13,7 +13,7 @@ User = get_user_model()
 class TaskFilter(django_filters.FilterSet):
     self_tasks = django_filters.BooleanFilter(
         method="filter_self_tasks",
-        label="Только свои задачи",
+        label=_("Only my tasks"),
         widget=forms.CheckboxInput,
     )
 
