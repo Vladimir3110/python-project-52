@@ -29,16 +29,14 @@ class TaskFilter(django_filters.FilterSet):
     self_tasks = django_filters.BooleanFilter(
         method='filter_self_tasks',
         label=_("Only my tasks"),
-        widget=forms.CheckboxInput()
+        widget=forms.CheckboxInput(
+            attrs={'class': 'form-check-input'}
+        )
     )
 
     class Meta:
         model = Task
         fields = ['status', 'executor', 'labels']
-    
-#    def __init__(self, *args, **kwargs):
-#        self.request = kwargs.pop('request', None)
-#        super().__init__(*args, **kwargs)
 
     def filter_self_tasks(self, queryset, name, value):
         if value and self.request and self.request.user.is_authenticated:

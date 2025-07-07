@@ -5,13 +5,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from .filters import TaskFilter
 from .forms import TaskForm
@@ -23,6 +18,7 @@ User = get_user_model()
 class TaskListView(ListView):
     model = Task
     filterset_class = TaskFilter
+    context_object_name = 'tasks'
 
     def get_queryset(self):
         queryset = super().get_queryset()
