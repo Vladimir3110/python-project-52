@@ -1,8 +1,6 @@
 import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
-from django.db import models
-from django.forms.widgets import CheckboxInput
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
@@ -45,7 +43,7 @@ class TaskFilter(django_filters.FilterSet):
         fields = ['status', 'executor', 'label']
 
     def filter_self_tasks(self, queryset, name, value):
-        value = value == 'on' if isinstance(value, str) else value
+#        value = value == 'on' if isinstance(value, str) else value
         
         if value and self.request and self.request.user.is_authenticated:
             return queryset.filter(author=self.request.user)
