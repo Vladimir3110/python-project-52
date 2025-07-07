@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">{% trans "Task detail" %}</h1>
+    <h1 class="my-4">{% trans "Task View" %}</h1>
     
     <div class="card">
         <div class="card-header bg-secondary text-white">
@@ -14,11 +14,11 @@
             <hr>
             <div class="container">
                 <div class="row p-1">
-                    <div class="col fw-bold">{% trans "Author" %}</div>
+                    <div class="col">{% trans "Author" %}</div>
                     <div class="col">{{ task.author.get_full_name|default:task.author.username }}</div>
                 </div>
                 <div class="row p-1">
-                    <div class="col fw-bold">{% trans "Executor" %}</div>
+                    <div class="col">{% trans "Executor" %}</div>
                     <div class="col">
                         {% if task.assigned_to %}
                             {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
@@ -28,19 +28,19 @@
                     </div>
                 </div>
                 <div class="row p-1">
-                    <div class="col fw-bold">{% trans "Status" %}</div>
+                    <div class="col">{% trans "Status" %}</div>
                     <div class="col">{{ task.status.name }}</div>
                 </div>
                 <div class="row p-1">
-                    <div class="col fw-bold">{% trans "Creation date" %}</div>
+                    <div class="col">{% trans "Creation date" %}</div>
                     <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
                 </div>
                 <div class="row p-1">
                     <div class="col">
-                        <h6 class="fw-bold">{% trans "Labels" %}:</h6>
-                        <ul class="list-unstyled">
+                        <h6>{% trans "Labels" %}:</h6>
+                        <ul>
                             {% for label in task.labels.all %}
-                                <li>- {{ label.name }}</li>
+                                <li>{{ label.name }}</li>
                             {% empty %}
                                 <li>{% trans "No labels" %}</li>
                             {% endfor %}
@@ -49,9 +49,8 @@
                 </div>
                 <div class="row p-1">
                     <div class="col">
-                        <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-link">{% trans "Edit" %}</a>
-                        <br>
-                        <a href="{% url 'tasks:delete' task.id %}" class="btn btn-sm btn-link">{% trans "Delete" %}</a>
+                        <a href="{% url 'tasks:update' task.id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+                        <a href="{% url 'tasks:delete' task.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
                     </div>
                 </div>
             </div>

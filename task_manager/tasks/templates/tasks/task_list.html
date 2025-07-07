@@ -99,7 +99,7 @@
             <tr>
                 <td>{{ task.id }}</td>
                 <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
-                <td>{{ task.status.name }}</td>
+                <td>{{ task.get_status_display }}</td>
                 <td>{{ task.author.get_full_name|default:task.author.username }}</td>
             
             <td>
