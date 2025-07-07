@@ -14,14 +14,14 @@ class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         label=_("Status"),
-        field_name='status_id'
+        field_name='status'
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=User.objects.all(),
         label=_("Executor"),
-        field_name='assigned_to'
+        field_name='executor'
     )
-    label = django_filters.ModelChoiceFilter(
+    labels = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         label=_("Label"),
         field_name='labels'
@@ -40,11 +40,9 @@ class TaskFilter(django_filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'label']
+        fields = ['status', 'executor', 'labels', 'self_tasks']
 
     def filter_self_tasks(self, queryset, name, value):
-#        value = value == 'on' if isinstance(value, str) else value
-        
         if value and self.request and self.request.user.is_authenticated:
             return queryset.filter(author=self.request.user)
         return queryset

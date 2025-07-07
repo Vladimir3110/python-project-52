@@ -2,10 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 
@@ -30,8 +29,8 @@ class TaskListView(FilterView):
             'executors': User.objects.all(),
             'labels': Label.objects.all(),
             'selected_status': self.request.GET.get('status', ''),
-            'selected_assigned_to': self.request.GET.get('assigned_to', ''),
-            'selected_label': self.request.GET.get('label', ''),
+            'selected_executor': self.request.GET.get('executor', ''),
+            'selected_label': self.request.GET.get('labels', ''),
             'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
         })
         return context
@@ -39,8 +38,25 @@ class TaskListView(FilterView):
     def get_filterset_kwargs(self, filterset_class):
         kwargs = super().get_filterset_kwargs(filterset_class)
         kwargs['request'] = self.request
-        kwargs['data'] = self.request.GET
         return kwargs
+
+#    def get_context_data(self, **kwargs):
+#        context = super().get_context_data(**kwargs)
+#        context.update({
+#            'executors': User.objects.all(),
+#            'labels': Label.objects.all(),
+#            'selected_status': self.request.GET.get('status', ''),
+#            'selected_assigned_to': self.request.GET.get('assigned_to', ''),
+#            'selected_label': self.request.GET.get('label', ''),
+#            'self_tasks': self.request.GET.get('self_tasks', '') == 'on'
+#        })
+#        return context
+    
+#    def get_filterset_kwargs(self, filterset_class):
+#        kwargs = super().get_filterset_kwargs(filterset_class)
+#        kwargs['request'] = self.request
+#        kwargs['data'] = self.request.GET
+#        return kwargs
 
 
 class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -77,12 +93,6 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin,
     def handle_no_permission(self):
         messages.error(self.request, _('Only task author can delete it'))
         return redirect('tasks:list')
-
-
-# class TaskDetailView(LoginRequiredMixin, View):
-#    def get(self, request, pk):
-#        task = get_object_or_404(Task, pk=pk)
-#        return render(request, 'tasks/task_detail.html', {'task': task})
 
 
 class TaskDetailView(DetailView):
