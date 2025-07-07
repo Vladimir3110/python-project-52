@@ -10,7 +10,7 @@
     <a class="btn btn-primary mb-3" href="{% url 'tasks:create' %}" role="button">{% trans "Create task" %}</a>
 
     <!-- Фильтры -->
-    <form method="post">
+    <form method="get">
         <div class="card mb-3">
             <div class="card-body bg-light">
                 <div class="d-flex flex-column gap-3">
@@ -18,17 +18,14 @@
 
                     <div>
                         <label class="form-label" for="id_status">{% trans "Status" %}</label>
-                        <select name="status" class="form-select" id="id_status">
-                            <option value="">---------</option>
-                            {% for status in statuses %}
-                                <option value="{{ status.id }}"
-                                    {% if selected_status == status.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ status.name }}
+                        <select name="status" class="form-select" id="id_status" aria-label="Статус">
+                            {% for value, name in filter.form.status.field.choices %}
+                                <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
+                                    {{ name|default:"---------" }}
                                 </option>
                             {% endfor %}
                         </select>
                     </div>
-
 
                     <!-- Исполнитель -->
 
@@ -38,7 +35,7 @@
                             <option value="">---------</option>
                             {% for user in executors %}
                                 <option value="{{ user.id }}" 
-                                    {% if selected_executor == user.id|stringformat:"s" %}selected{% endif %}>
+                                    {% if filter.form.executor.value|stringformat:"s" == user.id|stringformat:"s" %}selected{% endif %}>
                                     {{ user.get_full_name|default:user.username }}
                                 </option>
                             {% endfor %}
@@ -52,7 +49,7 @@
                             <option value="">---------</option>
                             {% for label in labels %}
                                 <option value="{{ label.id }}" 
-                                    {% if selected_label == label.id|stringformat:"s" %}selected{% endif %}>
+                                    {% if filter.form.label.value|stringformat:"s" == label.id|stringformat:"s" %}selected{% endif %}>
                                     {{ label.name }}
                                 </option>
                             {% endfor %}
@@ -66,7 +63,7 @@
                             class="form-check-input" 
                             id="id_self_tasks" 
                             name="self_tasks"
-                            {% if self_tasks %}checked{% endif %}>
+                            {% if filter.form.self_tasks.value %}checked{% endif %}>
                         <label class="form-check-label" for="id_self_tasks">
                             {% trans "Only my tasks" %}
                         </label>
