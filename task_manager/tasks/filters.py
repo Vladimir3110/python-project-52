@@ -26,12 +26,6 @@ class TaskFilter(django_filters.FilterSet):
         label=_("Label"),
         field_name='labels'
     )
-#    self_tasks = django_filters.BooleanFilter(
-#        method='filter_self_tasks',
-#        label=_("Only my tasks"),
-#        widget=forms.CheckboxInput(),
-#        field_name='self_tasks'
-#    )
     self_tasks = django_filters.BooleanFilter(
         method='filter_self_tasks',
         label=_("Only my tasks"),
