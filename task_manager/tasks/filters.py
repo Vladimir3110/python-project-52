@@ -1,6 +1,8 @@
 import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.forms.widgets import CheckboxInput
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
@@ -26,16 +28,21 @@ class TaskFilter(django_filters.FilterSet):
         label=_("Label"),
         field_name='labels'
     )
+#    self_tasks = django_filters.BooleanFilter(
+#        method='filter_self_tasks',
+#        label=_("Only my tasks"),
+#        widget=forms.CheckboxInput(),
+#        field_name='self_tasks'
+#    )
     self_tasks = django_filters.BooleanFilter(
         method='filter_self_tasks',
         label=_("Only my tasks"),
-        widget=forms.CheckboxInput(),
-        field_name='self_tasks'
+        widget=forms.CheckboxInput()
     )
 
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'label', 'self_tasks']
+        fields = ['status', 'executor', 'label']
 
     def filter_self_tasks(self, queryset, name, value):
         value = value == 'on' if isinstance(value, str) else value
