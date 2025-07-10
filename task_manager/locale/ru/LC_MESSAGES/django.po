@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 18:55+0900\n"
+"POT-Creation-Date: 2025-07-10 23:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,19 +100,19 @@ msgstr "Изменить"
 msgid "Delete"
 msgstr "Удалить"
 
-#: task_manager/labels/tests.py:68 task_manager/labels/views.py:24
+#: task_manager/labels/tests.py:68 task_manager/labels/views.py:27
 msgid "Label created successfully"
 msgstr "Метка успешно создана"
 
-#: task_manager/labels/tests.py:82 task_manager/labels/views.py:32
+#: task_manager/labels/tests.py:82 task_manager/labels/views.py:35
 msgid "Label updated successfully"
 msgstr "Метка успешно изменена"
 
-#: task_manager/labels/tests.py:94 task_manager/labels/views.py:39
+#: task_manager/labels/tests.py:94 task_manager/labels/views.py:45
 msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
-#: task_manager/labels/tests.py:105 task_manager/labels/views.py:46
+#: task_manager/labels/tests.py:105 task_manager/labels/views.py:47
 msgid "Cannot delete label associated with tasks"
 msgstr "Невозможно удалить метку, связанную с задачами"
 
@@ -202,10 +202,6 @@ msgstr "Автор"
 #: task_manager/tasks/models.py:36
 msgid "Assigned to"
 msgstr "Исполнитель"
-
-#: task_manager/tasks/models.py:45
-msgid "Created at"
-msgstr ""
 
 #: task_manager/tasks/templates/tasks/detail.html:6
 #, fuzzy
