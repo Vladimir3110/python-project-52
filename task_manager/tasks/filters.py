@@ -37,6 +37,11 @@ class TaskFilter(django_filters.FilterSet):
         fields = ['status', 'executor', 'labels', 'self_tasks']
 
     def filter_self_tasks(self, queryset, name, value):
-        if value and self.request and self.request.user.is_authenticated:
+        if (value and hasattr(self, 'request') and
+                self.request.user.is_authenticated):
             return queryset.filter(author=self.request.user)
         return queryset
+
+#        if value and self.request and self.request.user.is_authenticated:
+#            return queryset.filter(author=self.request.user)
+#        return queryset
