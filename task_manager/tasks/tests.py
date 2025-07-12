@@ -31,7 +31,7 @@ class TaskCRUDTest(TestCase):
         form_data = {
             'name': 'Test task 1',
             'description': 'Sample description 1',
-            'status': self.status.id,  # Исправлено: передаем ID статуса
+            'status': self.status.id,
             'labels': [self.label.id],
             'assigned_to': self.user.id,
         }
