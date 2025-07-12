@@ -1,8 +1,5 @@
-# from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-
-# from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -49,13 +46,3 @@ class LabelDeleteView(ProtectedDeleteMixin,
 
     def check_protected_condition(self, obj):
         return obj.tasks.exists()
-
-#    def post(self, request, *args, **kwargs):
-#        self.object = self.get_object()
-#        if self.object.tasks.exists():
-#            messages.error(
-#                request, 
-#                _('Cannot delete label associated with tasks')
-#                )
-#            return HttpResponseRedirect(reverse_lazy('labels_list'))
-#        return super().post(request, *args, **kwargs)

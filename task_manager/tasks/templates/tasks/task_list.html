@@ -32,25 +32,25 @@
                     <div>
                         <label class="form-label" for="id_executor">{% trans "Executor" %}</label>
                         <select name="executor" class="form-select" id="id_executor">
-                            <option value="">---------</option>
-                            {% for user in executors %}
-                                <option value="{{ user.id }}" 
-                                    {% if filter.form.executor.value|stringformat:"s" == user.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ user.get_full_name|default:user.username }}
+                            {% for value, name in filter.form.executor.field.choices %}
+                                <option value="{{ value }}" 
+                                    {% if filter.form.executor.value == value %}selected{% endif %}>
+                                    {{ name }}
                                 </option>
                             {% endfor %}
                         </select>
                     </div>
     
                     <!-- Метка -->
+
                     <div>
-                        <label class="form-label" for="id_label">{% trans "Label" %}</label>
-                        <select name="label" class="form-select" id="id_label">
+                        <label class="form-label" for="id_labels">{% trans "Label" %}</label>
+                        <select name="labels" class="form-select" id="id_labels">
                             <option value="">---------</option>
-                            {% for label in labels %}
-                                <option value="{{ label.id }}" 
-                                    {% if filter.form.label.value|stringformat:"s" == label.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ label.name }}
+                            {% for value, name in filter.form.labels.field.choices %}
+                                <option value="{{ value }}" 
+                                    {% if filter.form.labels.value == value %}selected{% endif %}>
+                                    {{ name }}
                                 </option>
                             {% endfor %}
                         </select>

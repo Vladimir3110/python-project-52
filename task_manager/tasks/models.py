@@ -42,10 +42,8 @@ class Task(models.Model):
         verbose_name=_('Labels')
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-
-#    created_at = models.DateTimeField(auto_now_add=True, 
-#                                      verbose_name=_('Created at'))
+    created_at = models.DateTimeField(auto_now_add=True, 
+                                      verbose_name=_('Created at'))
 
     def __str__(self):
         return self.name

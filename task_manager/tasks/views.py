@@ -39,6 +39,7 @@ class TaskListView(ListView):
         context['filter'] = self.filterset
         return context
 
+# -------------------
 # class TaskListView(FilterView):
 #    model = Task
 #    filterset_class = TaskFilter
