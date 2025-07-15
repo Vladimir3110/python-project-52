@@ -24,7 +24,8 @@ class TaskFilter(django_filters.FilterSet):
     labels = django_filters.ModelMultipleChoiceFilter(
         queryset=Label.objects.all(),
         label=_("Label"),
-        field_name="labels"
+        widget=forms.CheckboxSelectMultiple,
+#        field_name="labels"
     )
     self_tasks = django_filters.BooleanFilter(
         method="filter_self_tasks",
@@ -34,14 +35,15 @@ class TaskFilter(django_filters.FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'labels', 'self_tasks']
+        fields = ['status', 'executor', 'labels']  # , 'self_tasks'
 
-    def filter_self_tasks(self, queryset, name, value):
-        if (value and hasattr(self, 'request') and
-                self.request.user.is_authenticated):
-            return queryset.filter(author=self.request.user)
-        return queryset
-
-#        if value and self.request and self.request.user.is_authenticated:
+#    def filter_self_tasks(self, queryset, name, value):
+#        if (value and hasattr(self, 'request') and
+#                self.request.user.is_authenticated):
 #            return queryset.filter(author=self.request.user)
 #        return queryset
+
+    def filter_self_tasks(self, queryset, name, value):
+        if value and self.request.user.is_authenticated:
+            return queryset.filter(author=self.request.user)
+        return queryset

@@ -58,14 +58,10 @@
                     </div>
 
                     <!-- Чекбокс -->
+                    
                     <div class="form-check">
-                        <input 
-                            type="checkbox" 
-                            class="form-check-input" 
-                            id="id_self_tasks" 
-                            name="self_tasks"
-                            {% if filter.form.self_tasks.value %}checked{% endif %}>
-                        <label class="form-check-label" for="id_self_tasks">
+                        {{ filter.form.self_tasks }}
+                        <label class="form-check-label" for="{{ filter.form.self_tasks.id_for_label }}">
                             {% trans "Only my tasks" %}
                         </label>
                     </div>
