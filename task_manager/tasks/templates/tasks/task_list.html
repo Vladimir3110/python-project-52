@@ -15,60 +15,26 @@
             <div class="card-body bg-light">
                 <div class="d-flex flex-column gap-3">
                     <!-- Статус -->
-
-                    <div>
-                        <label class="form-label" for="id_status">{% trans "Status" %}</label>
-                        <select name="status" class="form-select" id="id_status" aria-label="Статус">
-                            {% for value, name in filter.form.status.field.choices %}
-                                <option value="{{ value }}"
-                                    {% if filter.form.status.value == value|stringformat:"s" %}selected{% endif %}>
-                                    {{ name|default:"---------" }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    {% bootstrap_field filter.form.status show_label=True %}
 
                     <!-- Исполнитель -->
-
-                    <div>
-                        <label class="form-label" for="id_executor">{% trans "Executor" %}</label>
-                        <select name="executor" class="form-select" id="id_executor">
-                            {% for value, name in filter.form.executor.field.choices %}
-                                <option value="{{ value }}" 
-                                    {% if filter.form.executor.value == value %}selected{% endif %}>
-                                    {{ name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    {% bootstrap_field filter.form.executor show_label=True %}
     
                     <!-- Метка -->
-
-                    <div>
-                        <label class="form-label" for="id_labels">{% trans "Label" %}</label>
-                        <select name="labels" class="form-select" id="id_labels">
-                            <option value="">---------</option>
-                            {% for value, name in filter.form.labels.field.choices %}
-                                <option value="{{ value }}" 
-                                    {% if filter.form.labels.value == value %}selected{% endif %}>
-                                    {{ name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    {% bootstrap_field filter.form.labels show_label=True %}
 
                     <!-- Чекбокс -->
-                    
-                    <div class="form-check">
+
+                    <div class="d-flex align-items-center">
                         {{ filter.form.self_tasks }}
-                        <label class="form-check-label" for="{{ filter.form.self_tasks.id_for_label }}">
+                        <label class="ms-2 mb-0" for="{{ filter.form.self_tasks.id_for_label }}">
                             {% trans "Only my tasks" %}
                         </label>
                     </div>
 
                     <!-- Кнопка -->
                     <div>
-                        <input class="btn btn-primary" type="submit" value="{% trans 'Show' %}">
+                        {% bootstrap_button button_type="submit" content=_("Show") button_class="btn-primary" %}
                     </div>
                 </div>
             </div>
@@ -96,22 +62,22 @@
                 <td>{% if task.status %}{{ task.status.name }}{% endif %}</td>
                 <td>{{ task.author.get_full_name|default:task.author.username }}</td>
             
-            <td>
-            {% if task.assigned_to %}
-            {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
-        {% else %}
-            -
-        {% endif %}
-        </td>
+                <td>
+                    {% if task.assigned_to %}
+                        {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                
                 <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
                     <div>
                         <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-link">{% trans "Edit" %}</a>
                         <br>
-                    <a href="{% url 'tasks:delete' task.id %}" 
-                       class="btn btn-sm btn-link">
-                        <i class="bi bi-trash"></i> {% trans "Delete" %}
-                    </a>
+                        <a href="{% url 'tasks:delete' task.id %}" class="btn btn-sm btn-link">
+                            <i class="bi bi-trash"></i> {% trans "Delete" %}
+                        </a>
                     </div>
                 </td>
             </tr>
@@ -119,5 +85,4 @@
         </tbody>
     </table>
 </div>
-
 {% endblock %}
