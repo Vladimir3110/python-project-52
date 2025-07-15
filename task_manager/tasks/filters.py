@@ -21,12 +21,18 @@ class TaskFilter(django_filters.FilterSet):
         label=_("Executor"),
         field_name='assigned_to'
     )
-    labels = django_filters.ModelMultipleChoiceFilter(
+    labels = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         label=_("Label"),
-        widget=forms.CheckboxSelectMultiple,
-#        field_name="labels"
+        field_name="labels"
     )
+
+#    labels = django_filters.ModelMultipleChoiceFilter(
+#        queryset=Label.objects.all(),
+#        label=_("Label"),
+#        widget=forms.CheckboxSelectMultiple,
+#        field_name="labels"
+#    )
     self_tasks = django_filters.BooleanFilter(
         method="filter_self_tasks",
         label=_("Only my tasks"),
