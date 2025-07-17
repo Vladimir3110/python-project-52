@@ -8,15 +8,13 @@
         {% if form.instance.id %}{% trans "Update task" %}{% else %}{% trans "Create task" %}{% endif %}
     </h2>
 
-
-        <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form form %}
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
             
         <button type="submit" class="btn btn-primary">
             {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
         </button>
     </form>
 </div>
-
 {% endblock %}
