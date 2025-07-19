@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -39,12 +40,14 @@ class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         status = self.get_object()
-        if status.task_set.exists():
+#        if status.task_set.exists():
+        if status.tasks.exists():
             messages.error(
                 self.request,
                 _("Cannot delete status in use"),
                 extra_tags='alert-danger'
             )
-            return self.get(request)
+#            return self.get(request)
+            return redirect(self.success_url)
 
         return super().delete(request, *args, **kwargs)
