@@ -62,7 +62,7 @@ class StatusDeleteView(ProtectedDeleteMixin,
     template_name = 'statuses/status_confirm_delete.html'
     success_url = reverse_lazy('status_list')
     success_message = _("Status successfully deleted")
-    protected_message = _("Cannot delete status because it is in use")
+    protected_message = _("Cannot delete status in use")
     protected_redirect = success_url
 
     def check_protected_condition(self, obj):
