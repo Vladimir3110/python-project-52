@@ -62,13 +62,3 @@ class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 #            return redirect(self.success_url)
 
 #        return super().delete(request, *args, **kwargs)
-
-        self.object = self.get_object()
-        if self.object.task_set.exists():
-            messages.error(
-                request,
-                _("Cannot delete status in use"),
-                extra_tags='alert-danger'
-            )
-            return self.render_to_response(self.get_context_data())
-        return super().delete(request, *args, **kwargs)
