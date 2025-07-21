@@ -1,8 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-
-# from django.shortcuts import redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -41,24 +40,30 @@ class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
+        
         if self.object.task_set.exists():
             messages.error(
                 request,
                 _("Cannot delete status in use"),
                 extra_tags='alert-danger'
             )
-            return self.render_to_response(self.get_context_data())
+            return redirect(self.success_url)
+        
         return super().delete(request, *args, **kwargs)
 
-#        status = self.get_object()
-#        if status.task_set.exists():
-#        if status.tasks.exists():
+# class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+#    model = Status
+#    template_name = 'statuses/status_confirm_delete.html'
+#    success_url = reverse_lazy('status_list')
+#    success_message = _("Status successfully deleted")
+
+#    def delete(self, request, *args, **kwargs):
+#        self.object = self.get_object()
+#        if self.object.task_set.exists():
 #            messages.error(
-#                self.request,
+#                request,
 #                _("Cannot delete status in use"),
 #                extra_tags='alert-danger'
 #            )
-#            return self.get(request)
-#            return redirect(self.success_url)
-
+#            return self.render_to_response(self.get_context_data())
 #        return super().delete(request, *args, **kwargs)
