@@ -41,7 +41,7 @@ class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         
-        if self.object.task_set.exists():
+        if self.object.tasks.exists(): 
             messages.error(
                 request,
                 _("Cannot delete status in use"),
