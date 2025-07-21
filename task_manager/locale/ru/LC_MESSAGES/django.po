@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-21 21:56+0900\n"
+"POT-Creation-Date: 2025-07-21 22:37+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -147,21 +147,23 @@ msgstr "Создать статус"
 msgid "Statuses"
 msgstr "Статусы"
 
-#: task_manager/statuses/views.py:24
+#: task_manager/statuses/views.py:27
 msgid "Status successfully created"
 msgstr "Статус успешно создан"
 
-#: task_manager/statuses/views.py:32
+#: task_manager/statuses/views.py:35
 msgid "Status successfully updated"
 msgstr "Статус успешно изменен"
 
-#: task_manager/statuses/views.py:39
+#: task_manager/statuses/views.py:64
 msgid "Status successfully deleted"
 msgstr "Статус успешно удален"
 
-#: task_manager/statuses/views.py:47
-msgid "Cannot delete status in use"
-msgstr "Невозможно удалить статус, потому что он используется"
+#: task_manager/statuses/views.py:65
+#, fuzzy
+#| msgid "Cannot delete user because it is in use"
+msgid "Cannot delete status because it is in use"
+msgstr "Невозможно удалить пользователя, потому что он используется"
 
 #: task_manager/tasks/filters.py:16 task_manager/tasks/models.py:20
 #: task_manager/tasks/templates/tasks/task_detail.html:31
@@ -389,6 +391,9 @@ msgstr "Вы залогинены"
 #: task_manager/users/views.py:85
 msgid "You are logged out"
 msgstr "Вы разлогинены"
+
+#~ msgid "Cannot delete status in use"
+#~ msgstr "Невозможно удалить статус, потому что он используется"
 
 #, fuzzy
 #~| msgid "Task detail"
