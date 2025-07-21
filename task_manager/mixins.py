@@ -42,7 +42,9 @@ class ProtectedDeleteMixin:
     def post(self, request, *args, **kwargs):
         obj = self.get_object()
         if self.check_protected_condition(obj):
-            messages.error(request, self.protected_message)
+            messages.error(request, 
+                           self.protected_message, 
+                           extra_tags='alert alert-danger')
             return redirect(self.protected_redirect)
         return super().post(request, *args, **kwargs)
 
