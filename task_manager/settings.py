@@ -39,7 +39,6 @@ ALLOWED_HOSTS = ['webserver', '127.0.0.1', 'localhost', 'python-project-52-udhc.
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
-    'task_manager.users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     "task_manager",
+    'task_manager.users',
     'task_manager.statuses',
     'task_manager.tasks',
     'task_manager.labels',
@@ -152,6 +152,7 @@ LANGUAGES = [
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
