@@ -19,5 +19,6 @@ upload
 .python_version
 .env
 staticfiles/
+/staticfiles/
 .ruff_cache
 db.sqlite3
