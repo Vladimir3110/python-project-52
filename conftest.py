@@ -1,8 +1,4 @@
-import os
-
 import pytest
-from django.conf import settings
-from django.core.management import call_command
 
 from task_manager.statuses.models import Status
 
@@ -15,9 +11,3 @@ def setup_statuses(db):
             Status(name="В работе"),
             Status(name="Завершен")
         ])
-
-
-def pytest_sessionstart(session):
-    if not os.path.exists(settings.STATIC_ROOT):
-        os.makedirs(settings.STATIC_ROOT)
-    call_command('collectstatic', interactive=False, clear=True)
