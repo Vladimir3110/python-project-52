@@ -143,8 +143,8 @@ USE_TZ = True
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
 LANGUAGES = [
-    ('en', ('English')),
-    ('ru', ('Russian')),
+    ('en', _('English')),
+    ('ru', _('Russian')),
 ]
 
 # Static files (CSS, JavaScript, Images)

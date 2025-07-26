@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-21 23:18+0900\n"
+"POT-Creation-Date: 2025-07-26 23:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr "Создать"
 #: task_manager/labels/templates/labels/label_list.html:7
 #: task_manager/tasks/models.py:42
 #: task_manager/tasks/templates/tasks/task_detail.html:40
-#: task_manager/templates/layout.html:37
+#: task_manager/templates/layout.html:38
 msgid "Labels"
 msgstr "Метки"
 
@@ -124,6 +124,14 @@ msgstr "У вас нет прав для изменения другого по�
 msgid "Cannot delete user because it is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
+#: task_manager/settings.py:146
+msgid "English"
+msgstr "Английский"
+
+#: task_manager/settings.py:147
+msgid "Russian"
+msgstr "Русский"
+
 #: task_manager/statuses/templates/statuses/status_confirm_delete.html:6
 msgid "Delete status"
 msgstr "Удалить статус"
@@ -143,23 +151,23 @@ msgid "Create status"
 msgstr "Создать статус"
 
 #: task_manager/statuses/templates/statuses/status_list.html:7
-#: task_manager/templates/layout.html:34
+#: task_manager/templates/layout.html:35
 msgid "Statuses"
 msgstr "Статусы"
 
-#: task_manager/statuses/views.py:27
+#: task_manager/statuses/views.py:24
 msgid "Status successfully created"
 msgstr "Статус успешно создан"
 
-#: task_manager/statuses/views.py:35
+#: task_manager/statuses/views.py:32
 msgid "Status successfully updated"
 msgstr "Статус успешно изменен"
 
-#: task_manager/statuses/views.py:64
+#: task_manager/statuses/views.py:42
 msgid "Status successfully deleted"
 msgstr "Статус успешно удален"
 
-#: task_manager/statuses/views.py:65
+#: task_manager/statuses/views.py:43
 msgid "Cannot delete status in use"
 msgstr "Невозможно удалить статус, потому что он используется"
 
@@ -233,7 +241,7 @@ msgid "Create task"
 msgstr "Создать задачу"
 
 #: task_manager/tasks/templates/tasks/task_list.html:7
-#: task_manager/templates/layout.html:40
+#: task_manager/templates/layout.html:41
 msgid "Tasks"
 msgstr "Задачи"
 
@@ -277,27 +285,27 @@ msgstr "Узнать больше"
 msgid "Task Manager Hexlet"
 msgstr "Менеджер задач Hexlet"
 
-#: task_manager/templates/layout.html:18
+#: task_manager/templates/layout.html:19
 msgid "Task Manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/layout.html:25
+#: task_manager/templates/layout.html:26
 #: task_manager/users/templates/users/user_list.html:6
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/templates/layout.html:45
+#: task_manager/templates/layout.html:46
 #: task_manager/users/templates/users/logout.html:5
 #: task_manager/users/templates/users/logout.html:9
 msgid "Logout"
 msgstr "Выход"
 
-#: task_manager/templates/layout.html:50
+#: task_manager/templates/layout.html:51
 #: task_manager/users/templates/users/login.html:6
 msgid "Login"
 msgstr "Вход"
 
-#: task_manager/templates/layout.html:53
+#: task_manager/templates/layout.html:54
 #: task_manager/users/templates/users/user_form.html:7
 msgid "Registration"
 msgstr "Регистрация"
