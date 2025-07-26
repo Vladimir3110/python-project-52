@@ -151,9 +151,9 @@ LANGUAGES = [
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-WHITENOISE_ROOT = STATIC_ROOT 
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
 STATICFILES_DIRS = [BASE_DIR / 'static']
+WHITENOISE_ROOT = STATIC_ROOT
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
