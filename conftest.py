@@ -1,4 +1,7 @@
+import os
+
 import pytest
+from django.conf import settings
 
 from task_manager.statuses.models import Status
 
@@ -11,3 +14,9 @@ def setup_statuses(db):
             Status(name="В работе"),
             Status(name="Завершен")
         ])
+
+
+@pytest.fixture(autouse=True)
+def setup_static(tmp_path):
+    settings.STATIC_ROOT = tmp_path / 'staticfiles'
+    os.makedirs(settings.STATIC_ROOT, exist_ok=True)
