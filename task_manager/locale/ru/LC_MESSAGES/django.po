@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-26 23:17+0900\n"
+"POT-Creation-Date: 2025-08-03 22:57+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr "Создать"
 #: task_manager/labels/templates/labels/label_list.html:7
 #: task_manager/tasks/models.py:42
 #: task_manager/tasks/templates/tasks/task_detail.html:40
-#: task_manager/templates/layout.html:38
+#: task_manager/templates/layout.html:36
 msgid "Labels"
 msgstr "Метки"
 
@@ -151,7 +151,7 @@ msgid "Create status"
 msgstr "Создать статус"
 
 #: task_manager/statuses/templates/statuses/status_list.html:7
-#: task_manager/templates/layout.html:35
+#: task_manager/templates/layout.html:33
 msgid "Statuses"
 msgstr "Статусы"
 
@@ -241,7 +241,7 @@ msgid "Create task"
 msgstr "Создать задачу"
 
 #: task_manager/tasks/templates/tasks/task_list.html:7
-#: task_manager/templates/layout.html:41
+#: task_manager/templates/layout.html:39
 msgid "Tasks"
 msgstr "Задачи"
 
@@ -285,27 +285,27 @@ msgstr "Узнать больше"
 msgid "Task Manager Hexlet"
 msgstr "Менеджер задач Hexlet"
 
-#: task_manager/templates/layout.html:19
+#: task_manager/templates/layout.html:20
 msgid "Task Manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/layout.html:26
+#: task_manager/templates/layout.html:28
 #: task_manager/users/templates/users/user_list.html:6
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/templates/layout.html:46
+#: task_manager/templates/layout.html:49
 #: task_manager/users/templates/users/logout.html:5
 #: task_manager/users/templates/users/logout.html:9
 msgid "Logout"
 msgstr "Выход"
 
-#: task_manager/templates/layout.html:51
+#: task_manager/templates/layout.html:56
 #: task_manager/users/templates/users/login.html:6
 msgid "Login"
 msgstr "Вход"
 
-#: task_manager/templates/layout.html:54
+#: task_manager/templates/layout.html:59
 #: task_manager/users/templates/users/user_form.html:7
 msgid "Registration"
 msgstr "Регистрация"
