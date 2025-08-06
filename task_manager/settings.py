@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.getenv('DEBUG', False) == 'True'
+DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = ['webserver', '127.0.0.1', 'localhost', 'python-project-52-udhc.onrender.com']
 
@@ -47,11 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "task_manager",
     'django_bootstrap5',
+    'django_filters',
     'task_manager.users',
     'task_manager.statuses',
     'task_manager.tasks',
     'task_manager.labels',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
