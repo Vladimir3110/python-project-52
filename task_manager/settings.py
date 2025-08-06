@@ -39,12 +39,12 @@ ALLOWED_HOSTS = ['webserver', '127.0.0.1', 'localhost', 'python-project-52-udhc.
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     "task_manager",
     'django_bootstrap5',
     'django_filters',
